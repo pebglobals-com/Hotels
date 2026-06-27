@@ -27,7 +27,7 @@ ul { margin: 0; padding: 0; }
 .img-fluid { max-width: 100%; height: auto; }
 .fixed-top { position: fixed; top: 0; left: 0; right: 0; z-index: 1030; }
 .main { display: block; } .navbar-collapse { flex-basis: 100%; flex-grow: 1; align-items: center; } .position-static { position: static !important; }
-.vh-100 { min-height: 100vh; height: 100vh !important; }
+.vh-100 { height: 30vh; min-height: 250px; }
 .center-flex-y { display: flex; flex-direction: column; justify-content: center; }
 .top-content-banner { position: fixed; top: 0; width: 100%; z-index: 11111; padding-top: 10px; background: rgba(0,0,0,0.85); display: none; }
 .top-content-banner .container { display: flex; justify-content: center; align-items: center; gap: 20px; padding-bottom: 10px; }

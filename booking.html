@@ -2,14 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book a Room - PEB Hotels</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Reserve Your Room - PEB Global Hotel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Century+Gothic:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="logo.png">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f4f4; color: #333; line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
-    header { background: #1a1a2e; color: #fff; padding: 1.5rem 2rem; text-align: center; }
-    header h1 { font-size: 2rem; letter-spacing: 1px; }
-    header p { font-size: 0.95rem; opacity: 0.85; }
     main { flex: 1; display: flex; justify-content: center; align-items: center; padding: 2rem; }
     .form-card { background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.12); padding: 2.5rem; width: 100%; max-width: 580px; }
     .form-card h2 { font-size: 1.5rem; margin-bottom: 0.25rem; color: #1a1a2e; }
@@ -22,12 +24,10 @@
     .row .form-group { flex: 1; }
     button { width: 100%; padding: 0.85rem; background: #1a1a2e; color: #fff; border: none; border-radius: 6px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem; }
     button:hover { background: #2d2d5e; }
-    footer { background: #1a1a2e; color: #aaa; text-align: center; padding: 1rem; font-size: 0.85rem; }
     @media (max-width: 500px) { .row { flex-direction: column; gap: 0; } .form-card { padding: 1.5rem; } }
   </style>
 </head>
 <body>
-
 <div class="scroll-progress"></div>
 <div class="top-content-banner" id="topBanner">
   <div class="container">
@@ -72,54 +72,62 @@
     </div>
   </div>
 </nav>
-
-  <main>
-    <div class="form-card">
-      <h2>Reserve Your Room</h2>
-      <p>Fill in the details below to book your stay.</p>
-
-      <form action="#" method="post" novalidate>
-        <div class="form-group">
-          <label for="name">Full Name</label>
-          <input type="text" id="name" name="name" placeholder="John Doe" required>
+<main id="primary" class="main">
+  <div class="hero-section bg-image vh-100 center-flex-y" style="background-image: url('images/hyatti-warri-meet-page-images11.png');">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>Reserve Your Room</h1>
+          <p class="hero-subtitle">Book your perfect stay at PEB Global Hotel</p>
         </div>
-
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="john@example.com" required>
-        </div>
-
-        <div class="row">
-          <div class="form-group">
-            <label for="checkin">Check-in Date</label>
-            <input type="date" id="checkin" name="checkin" required>
-          </div>
-          <div class="form-group">
-            <label for="checkout">Check-out Date</label>
-            <input type="date" id="checkout" name="checkout" required>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="guests">Number of Guests</label>
-          <input type="number" id="guests" name="guests" min="1" max="20" placeholder="2" required>
-        </div>
-
-        <div class="form-group">
-          <label for="room-type">Room Type</label>
-          <select id="room-type" name="room-type" required>
-            <option value="">-- Select a room --</option>
-            <option value="standard">Standard Room</option>
-            <option value="deluxe">Deluxe Room</option>
-            <option value="presidential">Presidential Suite</option>
-          </select>
-        </div>
-
-        <button type="submit">Book Now</button>
-      </form>
+      </div>
     </div>
-  </main>
+  </div>
+  <div class="form-card">
+    <h2>Reserve Your Room</h2>
+    <p>Fill in the details below to book your stay.</p>
 
+    <form action="#" method="post" novalidate>
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="John Doe" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label for="checkin">Check-in Date</label>
+          <input type="date" id="checkin" name="checkin" required>
+        </div>
+        <div class="form-group">
+          <label for="checkout">Check-out Date</label>
+          <input type="date" id="checkout" name="checkout" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="guests">Number of Guests</label>
+        <input type="number" id="guests" name="guests" min="1" max="20" placeholder="2" required>
+      </div>
+
+      <div class="form-group">
+        <label for="room-type">Room Type</label>
+        <select id="room-type" name="room-type" required>
+          <option value="">-- Select a room --</option>
+          <option value="standard">Standard Room</option>
+          <option value="deluxe">Deluxe Room</option>
+          <option value="presidential">Presidential Suite</option>
+        </select>
+      </div>
+
+      <button type="submit">Book Now</button>
+    </form>
+  </div>
+</main>
 <div class="container-fluid newsletter-sign">
   <div class="row">
     <div class="col-sm-12 text-center">

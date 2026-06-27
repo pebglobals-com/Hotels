@@ -12,11 +12,6 @@
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="logo.png">
   <style>
-    h1 {
-      text-align: center;
-      margin-bottom: 2rem;
-      font-size: 2rem;
-    }
     .category {
       margin-bottom: 2.5rem;
     }
@@ -26,8 +21,9 @@
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
+      width: 100%;
     }
     .placeholder {
       background: #b0b0b0;
@@ -91,34 +87,46 @@
   </div>
 </nav>
 <main id="primary" class="main">
-  <h1 style="padding-top: 120px;">PEB Hotels Gallery</h1>
-
-  <section class="category">
-    <h2>Rooms</h2>
-    <div class="grid">
-      <div class="placeholder">Room 1</div>
-      <div class="placeholder">Room 2</div>
-      <div class="placeholder">Room 3</div>
+  <div class="hero-section bg-image center-flex-y" style="background-image: url('images/hyatti-warri-meet-page-images11.png'); height: 45vh; min-height: 350px;">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>Our Gallery</h1>
+          <p class="hero-subtitle">Explore PEB Global Hotel through our photos</p>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
+  <div class="component fade-in">
+    <div class="container">
+      <section class="category">
+        <h2>Rooms</h2>
+        <div class="grid">
+          <div class="placeholder">Room 1</div>
+          <div class="placeholder">Room 2</div>
+          <div class="placeholder">Room 3</div>
+        </div>
+      </section>
 
-  <section class="category">
-    <h2>Amenities</h2>
-    <div class="grid">
-      <div class="placeholder">Amenity 1</div>
-      <div class="placeholder">Amenity 2</div>
-      <div class="placeholder">Amenity 3</div>
-    </div>
-  </section>
+      <section class="category">
+        <h2>Amenities</h2>
+        <div class="grid">
+          <div class="placeholder">Amenity 1</div>
+          <div class="placeholder">Amenity 2</div>
+          <div class="placeholder">Amenity 3</div>
+        </div>
+      </section>
 
-  <section class="category">
-    <h2>Dining</h2>
-    <div class="grid">
-      <div class="placeholder">Dining 1</div>
-      <div class="placeholder">Dining 2</div>
-      <div class="placeholder">Dining 3</div>
+      <section class="category">
+        <h2>Dining</h2>
+        <div class="grid">
+          <div class="placeholder">Dining 1</div>
+          <div class="placeholder">Dining 2</div>
+          <div class="placeholder">Dining 3</div>
+        </div>
+      </section>
     </div>
-  </section>
+  </div>
 </main>
 <div class="container-fluid newsletter-sign">
   <div class="row">

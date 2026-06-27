@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var dropdownToggles = document.querySelectorAll('.nav-item.dropdown > .nav-link.dropdown-toggle');
   dropdownToggles.forEach(function (toggle) { toggle.addEventListener('click', function (e) { if (window.innerWidth <= 991) { e.preventDefault(); var parent = toggle.parentElement; parent.classList.toggle('open'); } }); });
   var nav = document.getElementById('nav');
-  window.addEventListener('scroll', function () { if (window.scrollY > 100) { nav.classList.add('scrolled'); } else { nav.classList.remove('scrolled'); } });
+  if (nav) { window.addEventListener('scroll', function () { if (window.scrollY > 100) { nav.classList.add('scrolled'); } else { nav.classList.remove('scrolled'); } }); }
   if (typeof Fancybox !== 'undefined') { Fancybox.bind('[data-fancybox="gallery"]', { Toolbar: { display: { left: ['infobar'], middle: ['zoomIn', 'zoomOut', 'toggle1to1', 'rotateCCW', 'rotateCW', 'flipX', 'flipY'], right: ['slideshow', 'fullscreen', 'thumbs', 'close'] } }, Thumbs: { type: 'classic' } }); }
   var progressBar = document.querySelector('.scroll-progress');
   if (progressBar) { window.addEventListener('scroll', function () { var scrollTop = window.scrollY; var docHeight = document.documentElement.scrollHeight - window.innerHeight; var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0; progressBar.style.width = pct + '%'; }); }

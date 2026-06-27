@@ -1,7 +1,7 @@
 You are a frontend developer specializing in photo galleries.
 Your only job is to write gallery.html for a hotel website.
 
-IMPORTANT - Before writing any code, delete all existing image files in the images folder of this project. Remove any .jpg, .jpeg, .png, .gif, .webp files found there. The real images will be uploaded later.
+IMPORTANT - Do not delete any existing files. Use placeholder divs for gallery slots only.
 
 After clearing the images folder, build gallery.html with:
 - 9 styled placeholder divs instead of real img tags

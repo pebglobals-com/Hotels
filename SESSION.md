@@ -11,17 +11,14 @@ Agents: orchestrator.md, rooms.md, booking.md, gallery.md, contact.md, reviewer.
 Hotel: PEB Global Hotel, Plot 1 Old Okpe Link Road, Jeddo, Delta State, Nigeria
 Phone: +234 815 770 8389 | Email: reservations@pebglobalhotels.com
 Rooms: Standard 45000/night, Deluxe 75000/night, Studio 60000/night, Suite 120000/night
-STATUS: IN PROGRESS - MOBILE FIXES BEING APPLIED
+STATUS: IN PROGRESS - ROUND 1 AND 2 FIXES PARTIALLY DONE
 LATEST FIX: Top contact banner hidden on mobile to fix navbar layout collision
 LATEST FIX: Navbar padding-top moved to .main wrapper in style.css - desktop 140px mobile 80px
 LATEST FIX: Hero height reduced to 30vh min-height 250px across all 16 pages
 NEXT SESSION ROUND 1: Fix index.html broken links - stay.html to rooms.html, play.html to gallery.html, eat.html to restaurant.html, meet.html to contact.html
 NEXT SESSION ROUND 1: Fix Google Fonts Century Gothic broken - replace with Nunito
-NEXT SESSION ROUND 1: Fix Voucher Terms consistency across all footers
 NEXT SESSION ROUND 1: Fix booking.html novalidate contradicts required attributes
 NEXT SESSION ROUND 1: Fix booking.html room dropdown missing Studio Room option
-NEXT SESSION ROUND 2: Fix rooms.html 3 cards to 5 cards add Studio Room and Suite
-NEXT SESSION ROUND 2: Fix suite name mismatch Presidential Suite vs Self-Catering Suite
 NEXT SESSION ROUND 2: Fix style.css nav-toggler class mismatch open vs active
 NEXT SESSION ROUND 2: Fix style.css SVG typos resturant.svg and swiming-pool.svg
 NEXT SESSION ROUND 3: Reviewer full check on all fixes

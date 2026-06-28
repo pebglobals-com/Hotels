@@ -14,9 +14,31 @@
   <link rel="icon" type="image/png" href="logo.png">
   <style>
     body{font-family:'Nunito',sans-serif;}
+
+    @keyframes kenburns1 {
+      0% { transform: scale(1) translate(0, 0); }
+      100% { transform: scale(1.15) translate(2%, 1%); }
+    }
+    @keyframes kenburns2 {
+      0% { transform: scale(1) translate(0, 0); }
+      100% { transform: scale(1.15) translate(-2%, 1%); }
+    }
+    @keyframes kenburns3 {
+      0% { transform: scale(1) translate(0, 0); }
+      100% { transform: scale(1.15) translate(1%, -2%); }
+    }
+    @keyframes kenburns4 {
+      0% { transform: scale(1) translate(0, 0); }
+      100% { transform: scale(1.15) translate(-1%, 2%); }
+    }
+
     .hero-slider { position: relative; overflow: hidden; }
     .hero-slide { position: absolute; inset: 0; background-repeat: no-repeat; background-position: center; background-size: cover; opacity: 0; transition: opacity 1.2s ease-in-out; }
     .hero-slide.active { opacity: 1; }
+    .hero-slide.kenburns1.active { animation: kenburns1 8s ease-in-out forwards; }
+    .hero-slide.kenburns2.active { animation: kenburns2 8s ease-in-out forwards; }
+    .hero-slide.kenburns3.active { animation: kenburns3 8s ease-in-out forwards; }
+    .hero-slide.kenburns4.active { animation: kenburns4 8s ease-in-out forwards; }
     .hero-slide::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.5) 100%); z-index: 0; }
     .hero-slider .container { position: relative; z-index: 1; }
   </style>
@@ -68,10 +90,10 @@
 
 <main id="primary" class="main">
   <div class="hero-section hero-slider vh-100 center-flex-y">
-    <div class="hero-slide active" style="background-image: url('images/hero-exterior-night.jpg');"></div>
-    <div class="hero-slide" style="background-image: url('images/hero-signage-night.jpg');"></div>
-    <div class="hero-slide" style="background-image: url('images/hero-gate-night.jpg');"></div>
-    <div class="hero-slide" style="background-image: url('images/hero-reception.jpg');"></div>
+    <div class="hero-slide active kenburns1" style="background-image: url('images/hero-exterior-night.jpg');"></div>
+    <div class="hero-slide kenburns2" style="background-image: url('images/hero-signage-night.jpg');"></div>
+    <div class="hero-slide kenburns3" style="background-image: url('images/hero-gate-night.jpg');"></div>
+    <div class="hero-slide kenburns4" style="background-image: url('images/hero-reception.jpg');"></div>
     <div class="container">
       <div class="hero-content">
         <div class="hero-text">

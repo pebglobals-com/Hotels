@@ -12,21 +12,103 @@
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="logo.png">
   <style>
-    main { flex: 1; display: flex; justify-content: center; align-items: center; padding-left: 2rem; padding-right: 2rem; padding-bottom: 2rem; }
-    .form-card { background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.12); padding: 2.5rem; width: 100%; max-width: 580px; }
-    .form-card h2 { font-size: 1.5rem; margin-bottom: 0.25rem; color: #1a1a2e; }
-    .form-card p { font-size: 0.9rem; color: #666; margin-bottom: 1.5rem; }
+    body { font-family: 'Nunito', sans-serif; }
+    .booking-section { max-width: 860px; margin: 0 auto 3rem; padding: 0 20px; }
+    /* Progress Bar */
+    .progress-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; padding: 1.5rem 0; position: relative; }
+    .progress-bar::before { content: ''; position: absolute; top: 50%; left: 10%; right: 10%; height: 3px; background: #e0e0e0; transform: translateY(-50%); z-index: 0; }
+    .progress-bar .progress-line-fill { position: absolute; top: 50%; left: 10%; height: 3px; background: #d4a853; transform: translateY(-50%); z-index: 1; transition: width 0.4s ease; }
+    .progress-step { display: flex; flex-direction: column; align-items: center; position: relative; z-index: 2; }
+    .progress-step .step-circle { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; border: 3px solid #e0e0e0; background: #fff; color: #999; transition: all 0.3s ease; }
+    .progress-step.active .step-circle { border-color: #d4a853; background: #d4a853; color: #fff; }
+    .progress-step.completed .step-circle { border-color: #d4a853; background: #d4a853; color: #fff; }
+    .progress-step .step-label { margin-top: 0.5rem; font-size: 0.8rem; font-weight: 600; color: #999; white-space: nowrap; transition: color 0.3s ease; }
+    .progress-step.active .step-label { color: #1a1a2e; }
+    .progress-step.completed .step-label { color: #d4a853; }
+    /* Steps */
+    .step-content { display: none; animation: fadeIn 0.35s ease; }
+    .step-content.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .booking-card { background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); padding: 2rem; }
+    .booking-card h2 { font-size: 1.5rem; margin-bottom: 0.25rem; color: #1a1a2e; }
+    .booking-card .subtitle { font-size: 0.9rem; color: #666; margin-bottom: 1.5rem; }
+    .form-row-2 { display: flex; gap: 1rem; margin-bottom: 1rem; }
+    .form-row-2 .form-group { flex: 1; }
     .form-group { margin-bottom: 1.25rem; }
-    label { display: block; font-weight: 600; font-size: 0.85rem; color: #444; margin-bottom: 0.35rem; text-transform: uppercase; letter-spacing: 0.5px; }
-    input, select { width: 100%; padding: 0.75rem 0.9rem; border: 1px solid #ccc; border-radius: 6px; font-size: 0.95rem; font-family: inherit; transition: border-color 0.2s; background: #fafafa; }
-    input:focus, select:focus { outline: none; border-color: #1a1a2e; background: #fff; }
-    .row { display: flex; gap: 1rem; }
-    .row .form-group { flex: 1; }
-    .form-card button { width: 100%; padding: 0.85rem; background: #1a1a2e; color: #fff; border: none; border-radius: 6px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem; }
-    .form-card button:hover { background: #2d2d5e; }
-    @media (max-width: 500px) { .row { flex-direction: column; gap: 0; } .form-card { padding: 1.5rem; } }
+    .form-group label { display: block; font-weight: 600; font-size: 0.85rem; color: #444; margin-bottom: 0.35rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.75rem 0.9rem; border: 1px solid #ccc; border-radius: 6px; font-size: 0.95rem; font-family: 'Nunito', sans-serif; transition: border-color 0.2s; background: #fafafa; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #d4a853; background: #fff; box-shadow: 0 0 0 3px rgba(212,168,83,0.15); }
+    .form-group input.error, .form-group select.error { border-color: #e74c3c; box-shadow: 0 0 0 3px rgba(231,76,60,0.15); }
+    .nights-display { background: #f8f4ed; padding: 0.6rem 1rem; border-radius: 6px; font-size: 0.95rem; color: #1a1a2e; font-weight: 600; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem; }
+    .nights-display span { color: #d4a853; font-size: 1.1rem; }
+    /* Room Cards */
+    .room-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+    .room-card { border: 2px solid #eee; border-radius: 10px; overflow: hidden; cursor: pointer; transition: all 0.3s ease; background: #fff; position: relative; }
+    .room-card:hover { border-color: #d4a853; box-shadow: 0 4px 15px rgba(212,168,83,0.2); }
+    .room-card.selected { border-color: #d4a853; box-shadow: 0 4px 20px rgba(212,168,83,0.3); }
+    .room-card .room-img { width: 100%; height: 160px; object-fit: cover; display: block; }
+    .room-card .room-info { padding: 1rem; }
+    .room-card .room-name { font-size: 1.05rem; font-weight: 700; color: #1a1a2e; margin-bottom: 0.25rem; }
+    .room-card .room-price { font-size: 1.1rem; font-weight: 700; color: #d4a853; margin-bottom: 0.5rem; }
+    .room-card .room-meta { font-size: 0.8rem; color: #666; margin-bottom: 0.5rem; }
+    .room-card .room-meta i { margin-right: 0.3rem; }
+    .room-card .room-amenities { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.75rem; }
+    .room-card .room-amenities span { background: #f4f4f4; font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 4px; color: #555; }
+    .room-card .room-actions { display: flex; justify-content: space-between; align-items: center; }
+    .room-card .select-btn { background: #1a1a2e; color: #fff; border: none; padding: 0.5rem 1.2rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: background 0.2s; font-family: 'Nunito', sans-serif; }
+    .room-card .select-btn:hover { background: #2d2d5e; }
+    .room-card.selected .select-btn { background: #d4a853; }
+    .room-card .available-badge { background: #27ae60; color: #fff; font-size: 0.65rem; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
+    .running-total { background: #1a1a2e; color: #fff; padding: 1rem 1.25rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; font-weight: 600; margin-top: 1rem; }
+    .running-total .total-amount { color: #d4a853; font-size: 1.3rem; }
+    /* Step Nav Buttons */
+    .step-nav { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1.5rem; }
+    .step-nav .btn { padding: 0.8rem 2rem; border: none; border-radius: 6px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'Nunito', sans-serif; }
+    .step-nav .btn-primary { background: #d4a853; color: #fff; }
+    .step-nav .btn-primary:hover { background: #c49a48; }
+    .step-nav .btn-primary:disabled { background: #ccc; cursor: not-allowed; }
+    .step-nav .btn-secondary { background: #eee; color: #444; }
+    .step-nav .btn-secondary:hover { background: #ddd; }
+    .step-nav .btn-outline { background: transparent; color: #1a1a2e; border: 2px solid #1a1a2e; }
+    .step-nav .btn-outline:hover { background: #1a1a2e; color: #fff; }
+    .error-msg { background: #fdecea; color: #e74c3c; padding: 0.6rem 1rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; margin-top: 1rem; display: none; }
+    .error-msg.show { display: block; }
+    /* Step 3 - Review */
+    .review-section { display: flex; gap: 2rem; flex-wrap: wrap; }
+    .review-section .review-main { flex: 1; min-width: 280px; }
+    .review-section .review-sidebar { flex: 0 0 280px; }
+    .review-room-card { display: flex; gap: 1rem; background: #f9f9f9; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; }
+    .review-room-card img { width: 100px; height: 80px; object-fit: cover; border-radius: 6px; }
+    .review-room-card .review-room-info { flex: 1; }
+    .review-room-card .review-room-name { font-weight: 700; color: #1a1a2e; margin-bottom: 0.2rem; }
+    .review-room-card .review-room-price { color: #d4a853; font-weight: 600; }
+    .review-detail { display: flex; justify-content: space-between; padding: 0.6rem 0; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+    .review-detail:last-child { border-bottom: none; }
+    .review-detail .label { color: #666; }
+    .review-detail .value { font-weight: 600; color: #1a1a2e; }
+    .review-total { display: flex; justify-content: space-between; padding: 1rem 0; font-size: 1.2rem; font-weight: 700; border-top: 2px solid #d4a853; margin-top: 0.5rem; }
+    .review-total .value { color: #d4a853; }
+    .review-special { background: #f9f9f9; padding: 1rem; border-radius: 8px; margin-top: 1rem; }
+    .review-special p { margin: 0; font-size: 0.9rem; color: #555; font-style: italic; }
+    /* Success */
+    .success-content { text-align: center; padding: 2rem 1rem; display: none; }
+    .success-content.show { display: block; }
+    .success-content .success-icon { font-size: 3rem; color: #27ae60; margin-bottom: 1rem; }
+    .success-content h2 { color: #27ae60; }
+    .success-content p { font-size: 1rem; color: #555; max-width: 500px; margin: 0 auto 1.5rem; line-height: 1.7; }
+    .success-content .btn { display: inline-block; padding: 0.8rem 2.5rem; background: #1a1a2e; color: #fff; border: none; border-radius: 6px; font-size: 0.95rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: background 0.2s; font-family: 'Nunito', sans-serif; }
+    .success-content .btn:hover { background: #2d2d5e; }
+    @media (max-width: 768px) {
+      .room-grid { grid-template-columns: 1fr; }
+      .form-row-2 { flex-direction: column; gap: 0; }
+      .progress-bar .step-label { font-size: 0.65rem; }
+      .progress-bar::before, .progress-bar .progress-line-fill { left: 5%; right: 5%; }
+      .review-section { flex-direction: column; }
+      .review-section .review-sidebar { flex: 1; }
+      .booking-card { padding: 1.25rem; }
+      .step-nav .btn { padding: 0.7rem 1.2rem; font-size: 0.85rem; }
+    }
   </style>
-  <style>body{font-family:'Nunito',sans-serif;}</style>
 </head>
 <body>
 <!-- skip-link --><a href="#primary" class="skip-link">Skip to content</a>
@@ -65,7 +147,7 @@
   </div>
 </nav>
 <main id="primary" class="main">
-   <div class="hero-section bg-image center-flex-y" style="background-image: url('images/hero-gate-night.jpg');height:30vh;min-height:250px;">
+  <div class="hero-section bg-image center-flex-y" style="background-image: url('images/hero-gate-night.jpg');height:30vh;min-height:250px;">
     <div class="container">
       <div class="hero-content">
         <div class="hero-text">
@@ -75,50 +157,227 @@
       </div>
     </div>
   </div>
-  <div class="form-card">
-    <h2>Reserve Your Room</h2>
-    <p>Fill in the details below to book your stay.</p>
 
-    <form action="#" method="post">
-      <div class="form-group">
-        <label for="name">Full Name</label>
-        <input type="text" id="name" name="name" placeholder="John Doe" required>
+  <div class="booking-section" id="bookingApp">
+    <div class="progress-bar">
+      <div class="progress-line-fill" id="progressFill" style="width: 0%;"></div>
+      <div class="progress-step active" data-step="1">
+        <div class="step-circle" id="stepCircle1">1</div>
+        <div class="step-label">Your Stay</div>
       </div>
-
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+      <div class="progress-step" data-step="2">
+        <div class="step-circle" id="stepCircle2">2</div>
+        <div class="step-label">Your Details</div>
       </div>
+      <div class="progress-step" data-step="3">
+        <div class="step-circle" id="stepCircle3">3</div>
+        <div class="step-label">Review &amp; Book</div>
+      </div>
+    </div>
 
-      <div class="row">
-        <div class="form-group">
-          <label for="checkin">Check-in Date</label>
-          <input type="date" id="checkin" name="checkin" required>
+    <!-- Step 1 - Your Stay -->
+    <div class="step-content active" id="step1">
+      <div class="booking-card">
+        <h2>Your Stay</h2>
+        <p class="subtitle">Select your dates and preferred room</p>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="checkin">Check-in Date</label>
+            <input type="date" id="checkin" required>
+          </div>
+          <div class="form-group">
+            <label for="checkout">Check-out Date</label>
+            <input type="date" id="checkout" required>
+          </div>
+        </div>
+        <div class="nights-display" id="nightsDisplay">
+          <i class="fas fa-moon"></i> Number of nights: <span id="nightsCount">-</span>
         </div>
         <div class="form-group">
-          <label for="checkout">Check-out Date</label>
-          <input type="date" id="checkout" name="checkout" required>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="guests">Number of Guests</label>
-        <input type="number" id="guests" name="guests" min="1" max="20" placeholder="2" required>
-      </div>
-
-      <div class="form-group">
-        <label for="room-type">Room Type</label>
-          <select id="room-type" name="room-type" required>
-            <option value="">-- Select a room --</option>
-            <option value="standard">Standard Room</option>
-            <option value="deluxe">Deluxe Room</option>
-            <option value="studio">Studio Room</option>
-            <option value="suite">Suite</option>
+          <label for="guests">Number of Guests</label>
+          <select id="guests">
+            <option value="1">1 Guest</option>
+            <option value="2" selected>2 Guests</option>
+            <option value="3">3 Guests</option>
+            <option value="4">4 Guests</option>
+            <option value="5">5 Guests</option>
+            <option value="6">6 Guests</option>
           </select>
+        </div>
+        <h3 style="font-size:1.1rem;margin-bottom:0.75rem;color:#1a1a2e;">Select a Room</h3>
+        <div class="room-grid" id="roomGrid">
+          <div class="room-card" data-room="standard" data-price="45000" data-image="images/standard-room-1.jpg" data-name="Standard Room" data-bed="Queen bed" data-guests="2" data-amenities="Free WiFi, Air Conditioning, Flat-screen TV, En-suite Bathroom">
+            <img src="images/standard-room-1.jpg" alt="Standard Room" class="room-img" loading="lazy">
+            <div class="room-info">
+              <div class="room-name">Standard Room</div>
+              <div class="room-price">&#8358;45,000 <span style="font-size:0.75rem;font-weight:400;color:#999;">per night</span></div>
+              <div class="room-meta"><i class="fas fa-bed"></i> Queen bed &middot; <i class="fas fa-users"></i> Up to 2 guests</div>
+              <div class="room-amenities">
+                <span>Free WiFi</span><span>Air Conditioning</span><span>Flat-screen TV</span><span>En-suite Bathroom</span>
+              </div>
+              <div class="room-actions">
+                <button class="select-btn" type="button">Select Room</button>
+                <span class="available-badge">Available</span>
+              </div>
+            </div>
+          </div>
+          <div class="room-card" data-room="deluxe" data-price="75000" data-image="images/deluxe-room-1.jpg" data-name="Deluxe Room" data-bed="King bed" data-guests="2" data-amenities="Free WiFi, Air Conditioning, 50 inch TV, Rain Shower, Work Desk">
+            <img src="images/deluxe-room-1.jpg" alt="Deluxe Room" class="room-img" loading="lazy">
+            <div class="room-info">
+              <div class="room-name">Deluxe Room</div>
+              <div class="room-price">&#8358;75,000 <span style="font-size:0.75rem;font-weight:400;color:#999;">per night</span></div>
+              <div class="room-meta"><i class="fas fa-bed"></i> King bed &middot; <i class="fas fa-users"></i> Up to 2 guests</div>
+              <div class="room-amenities">
+                <span>Free WiFi</span><span>Air Conditioning</span><span>50 inch TV</span><span>Rain Shower</span><span>Work Desk</span>
+              </div>
+              <div class="room-actions">
+                <button class="select-btn" type="button">Select Room</button>
+                <span class="available-badge">Available</span>
+              </div>
+            </div>
+          </div>
+          <div class="room-card" data-room="studio" data-price="60000" data-image="images/studio-room-1.jpg" data-name="Studio Room" data-bed="Queen bed + kitchenette" data-guests="2" data-amenities="Free WiFi, Air Conditioning, Kitchenette, Work Desk">
+            <img src="images/studio-room-1.jpg" alt="Studio Room" class="room-img" loading="lazy">
+            <div class="room-info">
+              <div class="room-name">Studio Room</div>
+              <div class="room-price">&#8358;60,000 <span style="font-size:0.75rem;font-weight:400;color:#999;">per night</span></div>
+              <div class="room-meta"><i class="fas fa-bed"></i> Queen bed + kitchenette &middot; <i class="fas fa-users"></i> Up to 2 guests</div>
+              <div class="room-amenities">
+                <span>Free WiFi</span><span>Air Conditioning</span><span>Kitchenette</span><span>Work Desk</span>
+              </div>
+              <div class="room-actions">
+                <button class="select-btn" type="button">Select Room</button>
+                <span class="available-badge">Available</span>
+              </div>
+            </div>
+          </div>
+          <div class="room-card" data-room="suite" data-price="120000" data-image="images/suite-room-1.jpg" data-name="Self-Catering Suite" data-bed="King bed" data-guests="4" data-amenities="Free WiFi, Air Conditioning, Full Kitchen, Living Area, 2 Bedrooms">
+            <img src="images/suite-room-1.jpg" alt="Self-Catering Suite" class="room-img" loading="lazy">
+            <div class="room-info">
+              <div class="room-name">Self-Catering Suite</div>
+              <div class="room-price">&#8358;120,000 <span style="font-size:0.75rem;font-weight:400;color:#999;">per night</span></div>
+              <div class="room-meta"><i class="fas fa-bed"></i> King bed &middot; <i class="fas fa-users"></i> Up to 4 guests</div>
+              <div class="room-amenities">
+                <span>Free WiFi</span><span>Air Conditioning</span><span>Full Kitchen</span><span>Living Area</span><span>2 Bedrooms</span>
+              </div>
+              <div class="room-actions">
+                <button class="select-btn" type="button">Select Room</button>
+                <span class="available-badge">Available</span>
+              </div>
+            </div>
+          </div>
+          <div class="room-card" data-room="presidential" data-price="200000" data-image="images/suite-room-1.jpg" data-name="Presidential Suite" data-bed="King bed + living room" data-guests="6" data-amenities="Free WiFi, Air Conditioning, Jacuzzi, Private Terrace, Butler Service, Full Kitchen, Living Room, 3 Bedrooms">
+            <img src="images/suite-room-1.jpg" alt="Presidential Suite" class="room-img" loading="lazy">
+            <div class="room-info">
+              <div class="room-name">Presidential Suite</div>
+              <div class="room-price">&#8358;200,000 <span style="font-size:0.75rem;font-weight:400;color:#999;">per night</span></div>
+              <div class="room-meta"><i class="fas fa-bed"></i> King bed + living room &middot; <i class="fas fa-users"></i> Up to 6 guests</div>
+              <div class="room-amenities">
+                <span>Free WiFi</span><span>Air Conditioning</span><span>Jacuzzi</span><span>Private Terrace</span><span>Butler Service</span><span>Full Kitchen</span><span>3 Bedrooms</span>
+              </div>
+              <div class="room-actions">
+                <button class="select-btn" type="button">Select Room</button>
+                <span class="available-badge">Available</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="running-total" id="runningTotal" style="display:none;">
+          <span>Total Cost</span>
+          <span class="total-amount" id="totalAmount">&#8358;0</span>
+        </div>
+        <div class="error-msg" id="step1Error">Please select check-in date, check-out date, and a room before proceeding.</div>
+        <div class="step-nav">
+          <div></div>
+          <button class="btn btn-primary" id="toStep2" disabled>Next Step <i class="fas fa-arrow-right"></i></button>
+        </div>
       </div>
+    </div>
 
-      <button type="submit">Book Now</button>
-    </form>
+    <!-- Step 2 - Your Details -->
+    <div class="step-content" id="step2">
+      <div class="booking-card">
+        <h2>Your Details</h2>
+        <p class="subtitle">Tell us about yourself</p>
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" placeholder="e.g. John Doe" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="e.g. john@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="e.g. +234 801 234 5678" required>
+        </div>
+        <div class="form-group">
+          <label for="guestsStep2">Number of Guests</label>
+          <select id="guestsStep2">
+            <option value="1">1 Guest</option>
+            <option value="2" selected>2 Guests</option>
+            <option value="3">3 Guests</option>
+            <option value="4">4 Guests</option>
+            <option value="5">5 Guests</option>
+            <option value="6">6 Guests</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="specialRequests">Special Requests <span style="font-weight:400;color:#999;text-transform:none;">(optional)</span></label>
+          <textarea id="specialRequests" rows="3" placeholder="Any special requests or preferences..."></textarea>
+        </div>
+        <div class="error-msg" id="step2Error">Please fill in all required fields.</div>
+        <div class="step-nav">
+          <button class="btn btn-outline" id="backToStep1"><i class="fas fa-arrow-left"></i> Back</button>
+          <button class="btn btn-primary" id="toStep3">Next Step <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 - Review & Book -->
+    <div class="step-content" id="step3">
+      <div class="booking-card" id="reviewCard">
+        <h2>Review &amp; Book</h2>
+        <p class="subtitle">Please review your booking details before confirming</p>
+        <div class="review-section">
+          <div class="review-main">
+            <div class="review-room-card">
+              <img src="" alt="Selected Room" id="reviewRoomImg">
+              <div class="review-room-info">
+                <div class="review-room-name" id="reviewRoomName"></div>
+                <div class="review-room-price" id="reviewRoomPrice"></div>
+                <div style="font-size:0.8rem;color:#666;margin-top:0.3rem;"><i class="fas fa-bed"></i> <span id="reviewBedType"></span></div>
+              </div>
+            </div>
+            <div class="review-detail"><span class="label">Check-in</span><span class="value" id="reviewCheckin"></span></div>
+            <div class="review-detail"><span class="label">Check-out</span><span class="value" id="reviewCheckout"></span></div>
+            <div class="review-detail"><span class="label">Number of Nights</span><span class="value" id="reviewNights"></span></div>
+            <div class="review-detail"><span class="label">Price per Night</span><span class="value" id="reviewPricePerNight"></span></div>
+            <div class="review-detail"><span class="label">Number of Guests</span><span class="value" id="reviewGuests"></span></div>
+            <div class="review-total"><span>Total Cost</span><span class="value" id="reviewTotal"></span></div>
+          </div>
+          <div class="review-sidebar">
+            <div class="review-detail"><span class="label">Guest Name</span><span class="value" id="reviewName"></span></div>
+            <div class="review-detail"><span class="label">Email</span><span class="value" id="reviewEmail"></span></div>
+            <div class="review-detail"><span class="label">Phone</span><span class="value" id="reviewPhone"></span></div>
+            <div class="review-special" id="reviewSpecialContainer" style="display:none;">
+              <strong style="font-size:0.85rem;color:#1a1a2e;">Special Requests:</strong>
+              <p id="reviewSpecial"></p>
+            </div>
+          </div>
+        </div>
+        <div class="step-nav">
+          <button class="btn btn-outline" id="backToStep2"><i class="fas fa-arrow-left"></i> Back</button>
+          <button class="btn btn-primary" id="confirmBooking">Confirm Booking <i class="fas fa-check"></i></button>
+        </div>
+      </div>
+      <div class="success-content" id="successContent">
+        <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+        <h2>Booking Request Received!</h2>
+        <p id="successMessage"></p>
+        <a href="index.html" class="btn"><i class="fas fa-home"></i> Back to Homepage</a>
+      </div>
+    </div>
   </div>
 </main>
 <div class="container-fluid newsletter-sign">
@@ -186,5 +445,199 @@
   </div>
 </footer>
 <script src="script.js"></script>
+<script>
+(function() {
+  var currentStep = 1;
+  var selectedRoom = null;
+
+  // DOM refs
+  var checkin = document.getElementById('checkin');
+  var checkout = document.getElementById('checkout');
+  var nightsCount = document.getElementById('nightsCount');
+  var guests = document.getElementById('guests');
+  var guestsStep2 = document.getElementById('guestsStep2');
+  var roomGrid = document.getElementById('roomGrid');
+  var toStep2Btn = document.getElementById('toStep2');
+  var backToStep1Btn = document.getElementById('backToStep1');
+  var toStep3Btn = document.getElementById('toStep3');
+  var backToStep2Btn = document.getElementById('backToStep2');
+  var confirmBtn = document.getElementById('confirmBooking');
+  var step1Error = document.getElementById('step1Error');
+  var step2Error = document.getElementById('step2Error');
+
+  function formatDate(dateStr) {
+    var d = new Date(dateStr + 'T00:00:00');
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    return days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  function formatCurrency(n) {
+    return '&#8358;' + Number(n).toLocaleString();
+  }
+
+  function getNights() {
+    if (!checkin.value || !checkout.value) return 0;
+    var ci = new Date(checkin.value + 'T00:00:00');
+    var co = new Date(checkout.value + 'T00:00:00');
+    if (co <= ci) return 0;
+    return Math.round((co - ci) / (1000 * 60 * 60 * 24));
+  }
+
+  function updateNights() {
+    var n = getNights();
+    nightsCount.textContent = n > 0 ? n + ' night' + (n > 1 ? 's' : '') : '-';
+    updateTotal();
+    validateStep1();
+  }
+
+  function updateTotal() {
+    var n = getNights();
+    var totalEl = document.getElementById('runningTotal');
+    var totalAmt = document.getElementById('totalAmount');
+    if (n > 0 && selectedRoom) {
+      var price = parseInt(selectedRoom.dataset.price);
+      totalEl.style.display = 'flex';
+      totalAmt.innerHTML = formatCurrency(n * price);
+    } else {
+      totalEl.style.display = 'none';
+    }
+  }
+
+  function validateStep1() {
+    var n = getNights();
+    if (checkin.value && checkout.value && n > 0 && selectedRoom) {
+      toStep2Btn.disabled = false;
+      return true;
+    }
+    toStep2Btn.disabled = true;
+    return false;
+  }
+
+  function setMinDates() {
+    var today = new Date();
+    var y = today.getFullYear();
+    var m = String(today.getMonth() + 1).padStart(2, '0');
+    var d = String(today.getDate()).padStart(2, '0');
+    var min = y + '-' + m + '-' + d;
+    checkin.setAttribute('min', min);
+    checkin.addEventListener('change', function() {
+      if (checkin.value) {
+        checkout.setAttribute('min', checkin.value);
+        checkout.removeAttribute('disabled');
+      }
+      if (checkout.value && checkout.value <= checkin.value) checkout.value = '';
+      updateNights();
+    });
+    checkout.addEventListener('change', updateNights);
+  }
+
+  // Room selection
+  roomGrid.addEventListener('click', function(e) {
+    var card = e.target.closest('.room-card');
+    if (!card) return;
+    roomGrid.querySelectorAll('.room-card').forEach(function(c) { c.classList.remove('selected'); });
+    card.classList.add('selected');
+    selectedRoom = card;
+    updateTotal();
+    validateStep1();
+  });
+
+  // Sync guests between steps
+  guests.addEventListener('change', function() { guestsStep2.value = guests.value; });
+  guestsStep2.addEventListener('change', function() { guests.value = guestsStep2.value; });
+
+  // Progress bar
+  function updateProgress(step) {
+    document.querySelectorAll('.progress-step').forEach(function(el) {
+      var s = parseInt(el.dataset.step);
+      el.classList.remove('active', 'completed');
+      if (s < step) el.classList.add('completed');
+      else if (s === step) el.classList.add('active');
+    });
+    var circles = [document.getElementById('stepCircle1'), document.getElementById('stepCircle2'), document.getElementById('stepCircle3')];
+    for (var i = 0; i < 3; i++) {
+      if (i + 1 < step) circles[i].innerHTML = '<i class="fas fa-check"></i>';
+      else circles[i].textContent = i + 1;
+    }
+    var pct = ((step - 1) / 2) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+  }
+
+  function showStep(step) {
+    document.querySelectorAll('.step-content').forEach(function(el) { el.classList.remove('active'); });
+    document.getElementById('step' + step).classList.add('active');
+    currentStep = step;
+    updateProgress(step);
+    document.getElementById('bookingApp').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Step nav
+  toStep2Btn.addEventListener('click', function() {
+    if (!validateStep1()) {
+      step1Error.classList.add('show');
+      return;
+    }
+    step1Error.classList.remove('show');
+    showStep(2);
+  });
+
+  backToStep1Btn.addEventListener('click', function() { showStep(1); });
+
+  toStep3Btn.addEventListener('click', function() {
+    var name = document.getElementById('fullName').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var phone = document.getElementById('phone').value.trim();
+    if (!name || !email || !phone) {
+      step2Error.classList.add('show');
+      return;
+    }
+    step2Error.classList.remove('show');
+    populateReview();
+    showStep(3);
+  });
+
+  backToStep2Btn.addEventListener('click', function() { showStep(2); });
+
+  function populateReview() {
+    var n = getNights();
+    var price = parseInt(selectedRoom.dataset.price);
+    var total = n * price;
+    document.getElementById('reviewRoomImg').src = selectedRoom.dataset.image;
+    document.getElementById('reviewRoomName').textContent = selectedRoom.dataset.name;
+    document.getElementById('reviewRoomPrice').innerHTML = formatCurrency(price) + ' per night';
+    document.getElementById('reviewBedType').textContent = selectedRoom.dataset.bed;
+    document.getElementById('reviewCheckin').textContent = formatDate(checkin.value);
+    document.getElementById('reviewCheckout').textContent = formatDate(checkout.value);
+    document.getElementById('reviewNights').textContent = n + ' night' + (n > 1 ? 's' : '');
+    document.getElementById('reviewPricePerNight').innerHTML = formatCurrency(price);
+    document.getElementById('reviewGuests').textContent = guests.value;
+    document.getElementById('reviewTotal').innerHTML = formatCurrency(total);
+    document.getElementById('reviewName').textContent = document.getElementById('fullName').value.trim();
+    document.getElementById('reviewEmail').textContent = document.getElementById('email').value.trim();
+    document.getElementById('reviewPhone').textContent = document.getElementById('phone').value.trim();
+    var special = document.getElementById('specialRequests').value.trim();
+    var container = document.getElementById('reviewSpecialContainer');
+    if (special) {
+      container.style.display = 'block';
+      document.getElementById('reviewSpecial').textContent = special;
+    } else {
+      container.style.display = 'none';
+    }
+  }
+
+  confirmBtn.addEventListener('click', function() {
+    var name = document.getElementById('fullName').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var msg = 'Thank you ' + name + '! Your booking request has been received. Our reservations team will contact you at ' + email + ' within 24 hours to confirm your reservation and arrange payment.';
+    document.getElementById('successMessage').textContent = msg;
+    document.getElementById('reviewCard').style.display = 'none';
+    document.getElementById('successContent').classList.add('show');
+    document.getElementById('step3').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  setMinDates();
+})();
+</script>
 </body>
 </html>

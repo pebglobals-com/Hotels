@@ -103,6 +103,23 @@
     .success-content .btn-row { display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
     .whatsapp-note { background: #f0f8f0; border: 1px solid #d4edda; border-radius: 6px; padding: 0.7rem 1rem; font-size: 0.8rem; color: #2d6a2d; margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem; }
     .whatsapp-note i { color: #25D366; font-size: 1rem; }
+    /* Payment Card */
+    .payment-card { background: #fdfaf2; border: 2px solid #d4a853; border-radius: 12px; padding: 1.5rem; margin: 1.5rem auto; max-width: 480px; text-align: left; box-shadow: 0 4px 20px rgba(212,168,83,0.15); }
+    .payment-card h3 { font-size: 1.15rem; color: #1a1a2e; margin-bottom: 0.5rem; text-align: center; }
+    .payment-card .payment-note { color: #d4a853; font-size: 0.9rem; text-align: center; font-weight: 600; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid #f0e4cc; }
+    .payment-table { width: 100%; border-collapse: collapse; }
+    .payment-table td { padding: 0.45rem 0; font-size: 0.9rem; vertical-align: top; }
+    .payment-table td:first-child { color: #666; padding-right: 1rem; white-space: nowrap; }
+    .payment-table td:last-child { font-weight: 600; color: #1a1a2e; }
+    .payment-table .amount-row td { padding-top: 0.75rem; border-top: 1px solid #f0e4cc; }
+    .payment-table .amount-row td:first-child { font-size: 0.9rem; color: #666; font-weight: 400; }
+    .payment-table .amount-row td:last-child { font-size: 1.4rem; color: #d4a853; font-weight: 700; }
+    .payment-divider { height: 1px; background: #f0e4cc; margin: 1rem 0; }
+    .payment-transfer-note { font-size: 0.8rem; color: #888; text-align: center; font-style: italic; }
+    .payment-receipt-btn { display: block; width: 100%; padding: 0.85rem; background: #d4a853; color: #fff; border: none; border-radius: 6px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background 0.2s; font-family: 'Nunito', sans-serif; margin-top: 1rem; text-align: center; text-decoration: none; }
+    .payment-receipt-btn:hover { background: #c49a48; color: #fff; }
+    .payment-receipt-note { font-size: 0.78rem; color: #999; text-align: center; font-style: italic; margin-top: 0.5rem; }
+    .payment-disclaimer { font-size: 0.72rem; color: #e74c3c; text-align: center; margin-top: 1rem; }
     @media (max-width: 768px) {
       .room-grid { grid-template-columns: 1fr; }
       .form-row-2 { flex-direction: column; gap: 0; }
@@ -381,6 +398,21 @@
         <div class="success-icon"><i class="fas fa-check-circle"></i></div>
         <h2>Booking Request Received!</h2>
         <p id="successMessage"></p>
+        <div class="payment-card">
+          <h3>Complete Your Payment</h3>
+          <div class="payment-note">Your booking is reserved for 24 hours pending payment confirmation.</div>
+          <table class="payment-table">
+            <tr><td>Bank Name</td><td>First Bank of Nigeria</td></tr>
+            <tr><td>Account Name</td><td>PEB Global Hotels Ltd</td></tr>
+            <tr><td>Account Number</td><td>3012345678</td></tr>
+            <tr class="amount-row"><td>Amount Due</td><td id="paymentAmount">&#8358;0</td></tr>
+          </table>
+          <div class="payment-divider"></div>
+          <div class="payment-transfer-note">Transfer the exact amount above to the account details provided. Use your name as the transfer narration.</div>
+          <a class="payment-receipt-btn" id="paymentReceiptBtn" href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> Send Payment Receipt via WhatsApp</a>
+          <div class="payment-receipt-note">Tap the button above, then attach your payment screenshot in WhatsApp</div>
+          <div class="payment-disclaimer">Note: These are mockup bank details for demonstration purposes only. Real account details will be provided before go-live.</div>
+        </div>
         <div class="btn-row">
           <a href="index.html" class="btn"><i class="fas fa-home"></i> Back to Homepage</a>
           <button class="btn btn-gold" id="resendWhatsApp"><i class="fab fa-whatsapp"></i> Resend Booking to WhatsApp</button>
@@ -693,8 +725,16 @@
   confirmBtn.addEventListener('click', function() {
     var name = document.getElementById('fullName').value.trim();
     var email = document.getElementById('email').value.trim();
+    var roomName = selectedRoom ? selectedRoom.dataset.name : '';
+    var nights = getNights();
+    var price = selectedRoom ? parseInt(selectedRoom.dataset.price) : 0;
+    var total = nights * price;
+
     var msg = 'Thank you ' + name + '! Your booking request has been sent to our reservations team on WhatsApp. We will contact you at ' + email + ' within 24 hours to confirm your reservation. Please await our confirmation before making payment.';
     document.getElementById('successMessage').textContent = msg;
+    document.getElementById('paymentAmount').innerHTML = formatCurrency(total);
+    var receiptUrl = 'https://wa.me/2348157708389?text=' + encodeURIComponent('Hello PEB Global Hotel, I have made payment for my booking. Guest Name: ' + name + ' Room: ' + roomName + ' Amount Paid: ' + formatCurrencyPlain(total) + ' Please find my receipt attached.');
+    document.getElementById('paymentReceiptBtn').href = receiptUrl;
     document.getElementById('reviewCard').style.display = 'none';
     document.getElementById('successContent').classList.add('show');
     document.getElementById('step3').scrollIntoView({ behavior: 'smooth', block: 'start' });

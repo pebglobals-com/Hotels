@@ -4,13 +4,14 @@ Location: C:\Users\hp\Desktop\Website Projects\PEB Hotels
 GitHub: https://github.com/pebglobals-com/Hotels.git
 Model: DeepSeek V4 Flash Free on OpenCode v1.17.11
 RAM: 6GB - max 2 OpenCode instances at once
-STATUS: BOOKING PAYMENT SECTION ADDED - MOCKUP BANK DETAILS
-BOOKING FLOW: Step 1 Stay > Step 2 Details > Step 3 Review > Confirm > Payment Section > WhatsApp Receipt
+STATUS: BOOKING PAGE FULLY COMPLETE WITH PAYMENT SECTION
+BOOKING FLOW: Step 1 Stay > Step 2 Details > Step 3 Review > Confirm > Payment Card > WhatsApp Receipt
 MOCKUP BANK: First Bank of Nigeria | PEB Global Hotels Ltd | 3012345678
-PENDING: Replace mockup bank details with real account before go-live
-PENDING: Flutterwave payment integration when client is ready
-PENDING: EmailJS automatic email notification
+REPLACE BEFORE GO-LIVE: Swap mockup bank details with real hotel account details
+PENDING: Flutterwave payment integration to replace bank transfer
+PENDING: EmailJS automatic email notification on booking confirmation
 PENDING: Minor fixes - rel noopener, meta descriptions, script.js null guard
+PENDING: Video hero on homepage when client provides video file
 Pages: index, about, rooms, booking, gallery, contact, standard-room, deluxe-room, studio-room, suite, bar, lounge, club, restaurant, gym, pool
 Hotel: PEB Global Hotel, Plot 1 Old Okpe Link Road, Jeddo, Delta State, Nigeria
 Phone: +234 815 770 8389 | Email: reservations@pebglobalhotels.com

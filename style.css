@@ -63,7 +63,6 @@ ul { margin: 0; padding: 0; }
 .nav-toggler.active .burger-mid { opacity: 0; }
 .nav-toggler.active .burger-low { transform: rotate(-45deg) translate(7px, -8px); }
 .hero-section { position: relative; overflow: hidden; padding-bottom: 80px; }
-.hero-section::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.5) 100%); z-index: 0; }
 .hero-section .container { position: relative; z-index: 1; }
 .hero-content { display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem; }
 .hero-text { max-width: 600px; }

@@ -12,7 +12,14 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="logo.png">
-  <style>body{font-family:'Nunito',sans-serif;}</style>
+  <style>
+    body{font-family:'Nunito',sans-serif;}
+    .hero-slider { position: relative; overflow: hidden; }
+    .hero-slide { position: absolute; inset: 0; background-repeat: no-repeat; background-position: center; background-size: cover; opacity: 0; transition: opacity 1.2s ease-in-out; }
+    .hero-slide.active { opacity: 1; }
+    .hero-slide::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.5) 100%); z-index: 0; }
+    .hero-slider .container { position: relative; z-index: 1; }
+  </style>
 </head>
 <body>
 <!-- skip-link --><a href="#primary" class="skip-link">Skip to content</a>
@@ -60,7 +67,11 @@
 </nav>
 
 <main id="primary" class="main">
-  <div class="hero-section bg-image vh-100 center-flex-y" style="background-image: url('images/hero-reception.jpg');">
+  <div class="hero-section hero-slider vh-100 center-flex-y">
+    <div class="hero-slide active" style="background-image: url('images/hero-exterior-night.jpg');"></div>
+    <div class="hero-slide" style="background-image: url('images/hero-signage-night.jpg');"></div>
+    <div class="hero-slide" style="background-image: url('images/hero-gate-night.jpg');"></div>
+    <div class="hero-slide" style="background-image: url('images/hero-reception.jpg');"></div>
     <div class="container">
       <div class="hero-content">
         <div class="hero-text">

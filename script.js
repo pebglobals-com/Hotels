@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
+  var slides = document.querySelectorAll('.hero-slide');
+  if (slides.length > 1) { var si = 0; setInterval(function () { slides[si].classList.remove('active'); si = (si + 1) % slides.length; slides[si].classList.add('active'); }, 5000); }
   var navToggler = document.getElementById('navToggler');
   var navbar = document.getElementById('navbar');
   if (navToggler && navbar) { navToggler.addEventListener('click', function () { navbar.classList.toggle('open'); navToggler.classList.toggle('active'); }); }

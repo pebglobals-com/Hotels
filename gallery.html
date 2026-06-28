@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="logo.png">
   <style>
@@ -25,19 +26,17 @@
       gap: 1.5rem;
       width: 100%;
     }
-    .placeholder {
-      background: #b0b0b0;
+    .grid .gallery-image img {
       width: 100%;
       height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 8px;
-      color: #fff;
-      font-size: 1.1rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease, filter 0.3s ease;
+      filter: brightness(0.95);
+    }
+    .grid .gallery-image:hover img {
+      transform: scale(1.06);
+      filter: brightness(1.05);
     }
   </style>
   <style>body{font-family:'Nunito',sans-serif;}</style>
@@ -79,7 +78,7 @@
   </div>
 </nav>
 <main id="primary" class="main">
-  <div class="hero-section bg-image center-flex-y" style="background-image: url('images/hyatti-warri-meet-page-images11.png'); height: 30vh; min-height: 250px;">
+  <div class="hero-section bg-image center-flex-y" style="background-image: url('images/hero-signage-night.jpg'); height: 30vh; min-height: 250px;">
     <div class="container">
       <div class="hero-content">
         <div class="hero-text">
@@ -94,27 +93,36 @@
       <section class="category">
         <h2>Rooms</h2>
         <div class="grid">
-          <div class="placeholder">Room 1</div>
-          <div class="placeholder">Room 2</div>
-          <div class="placeholder">Room 3</div>
+          <a class="gallery-image" href="images/standard-room-1.jpg" data-fancybox="gallery"><img class="img-fluid" src="images/standard-room-1.jpg" alt="Standard Room"></a>
+          <a class="gallery-image" href="images/deluxe-room-1.jpg" data-fancybox="gallery"><img class="img-fluid" src="images/deluxe-room-1.jpg" alt="Deluxe Room"></a>
+          <a class="gallery-image" href="images/studio-room-1.jpg" data-fancybox="gallery"><img class="img-fluid" src="images/studio-room-1.jpg" alt="Studio Room"></a>
+          <a class="gallery-image" href="images/suite-room-1.jpg" data-fancybox="gallery"><img class="img-fluid" src="images/suite-room-1.jpg" alt="Suite"></a>
+          <a class="gallery-image" href="images/standard-room-2.jpg" data-fancybox="gallery"><img class="img-fluid" src="images/standard-room-2.jpg" alt="Standard Room"></a>
+          <a class="gallery-image" href="images/deluxe-room-2.jpg" data-fancybox="gallery"><img class="img-fluid" src="images/deluxe-room-2.jpg" alt="Deluxe Room"></a>
         </div>
       </section>
 
       <section class="category">
         <h2>Amenities</h2>
         <div class="grid">
-          <div class="placeholder">Amenity 1</div>
-          <div class="placeholder">Amenity 2</div>
-          <div class="placeholder">Amenity 3</div>
+          <a class="gallery-image" href="images/lounge-living-1.jpg" data-fancybox="gallery"><img class="img-fluid" src="images/lounge-living-1.jpg" alt="Lounge"></a>
+          <a class="gallery-image" href="images/lounge-living-2.jpg" data-fancybox="gallery"><img class="img-fluid" src="images/lounge-living-2.jpg" alt="Lounge"></a>
+          <a class="gallery-image" href="images/lounge-seating-1.jpg" data-fancybox="gallery"><img class="img-fluid" src="images/lounge-seating-1.jpg" alt="Lounge Seating"></a>
+          <a class="gallery-image" href="images/bathroom-1.jpg" data-fancybox="gallery"><img class="img-fluid" src="images/bathroom-1.jpg" alt="Bathroom"></a>
+          <a class="gallery-image" href="images/lounge-living-3.jpg" data-fancybox="gallery"><img class="img-fluid" src="images/lounge-living-3.jpg" alt="Lounge"></a>
+          <a class="gallery-image" href="images/lounge-living-4.jpg" data-fancybox="gallery"><img class="img-fluid" src="images/lounge-living-4.jpg" alt="Lounge"></a>
         </div>
       </section>
 
       <section class="category">
-        <h2>Dining</h2>
+        <h2>Dining &amp; Bar</h2>
         <div class="grid">
-          <div class="placeholder">Dining 1</div>
-          <div class="placeholder">Dining 2</div>
-          <div class="placeholder">Dining 3</div>
+          <a class="gallery-image" href="images/restaurant-dining-1.jpg" data-fancybox="gallery"><img class="img-fluid" src="images/restaurant-dining-1.jpg" alt="Restaurant"></a>
+          <a class="gallery-image" href="images/restaurant-food-2.jpg" data-fancybox="gallery"><img class="img-fluid" src="images/restaurant-food-2.jpg" alt="Restaurant Food"></a>
+          <a class="gallery-image" href="images/bar-counter-1.jpg" data-fancybox="gallery"><img class="img-fluid" src="images/bar-counter-1.jpg" alt="Bar"></a>
+          <a class="gallery-image" href="images/bar-counter-2.jpg" data-fancybox="gallery"><img class="img-fluid" src="images/bar-counter-2.jpg" alt="Bar"></a>
+          <a class="gallery-image" href="images/restaurant-food-3.jpg" data-fancybox="gallery"><img class="img-fluid" src="images/restaurant-food-3.jpg" alt="Restaurant Food"></a>
+          <a class="gallery-image" href="images/bar-counter-3.jpg" data-fancybox="gallery"><img class="img-fluid" src="images/bar-counter-3.jpg" alt="Bar"></a>
         </div>
       </section>
     </div>
@@ -184,6 +192,7 @@
     <div class="row"><div class="col"><p class="text-center copyright">&copy; 2026 PEB Global Hotels. All rights reserved.</p></div></div>
   </div>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

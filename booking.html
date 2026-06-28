@@ -98,6 +98,11 @@
     .success-content p { font-size: 1rem; color: #555; max-width: 500px; margin: 0 auto 1.5rem; line-height: 1.7; }
     .success-content .btn { display: inline-block; padding: 0.8rem 2.5rem; background: #1a1a2e; color: #fff; border: none; border-radius: 6px; font-size: 0.95rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: background 0.2s; font-family: 'Nunito', sans-serif; }
     .success-content .btn:hover { background: #2d2d5e; }
+    .success-content .btn-gold { background: #d4a853; color: #fff; margin-left: 0.5rem; }
+    .success-content .btn-gold:hover { background: #c49a48; color: #fff; }
+    .success-content .btn-row { display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
+    .whatsapp-note { background: #f0f8f0; border: 1px solid #d4edda; border-radius: 6px; padding: 0.7rem 1rem; font-size: 0.8rem; color: #2d6a2d; margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    .whatsapp-note i { color: #25D366; font-size: 1rem; }
     @media (max-width: 768px) {
       .room-grid { grid-template-columns: 1fr; }
       .form-row-2 { flex-direction: column; gap: 0; }
@@ -370,12 +375,16 @@
           <button class="btn btn-outline" id="backToStep2"><i class="fas fa-arrow-left"></i> Back</button>
           <button class="btn btn-primary" id="confirmBooking">Confirm Booking <i class="fas fa-check"></i></button>
         </div>
+        <div class="whatsapp-note"><i class="fab fa-whatsapp"></i> By confirming, your booking details will be sent directly to our WhatsApp reservations team at +234 815 770 8389</div>
       </div>
       <div class="success-content" id="successContent">
         <div class="success-icon"><i class="fas fa-check-circle"></i></div>
         <h2>Booking Request Received!</h2>
         <p id="successMessage"></p>
-        <a href="index.html" class="btn"><i class="fas fa-home"></i> Back to Homepage</a>
+        <div class="btn-row">
+          <a href="index.html" class="btn"><i class="fas fa-home"></i> Back to Homepage</a>
+          <button class="btn btn-gold" id="resendWhatsApp"><i class="fab fa-whatsapp"></i> Resend Booking to WhatsApp</button>
+        </div>
       </div>
     </div>
   </div>
@@ -474,6 +483,57 @@
 
   function formatCurrency(n) {
     return '&#8358;' + Number(n).toLocaleString();
+  }
+
+  function formatCurrencyPlain(n) {
+    return '\u20A6' + Number(n).toLocaleString();
+  }
+
+  function formatDateTime() {
+    var d = new Date();
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var hours = d.getHours();
+    var mins = String(d.getMinutes()).padStart(2, '0');
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+    return days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear() + ' at ' + hours + ':' + mins + ' ' + ampm;
+  }
+
+  function buildWhatsAppUrl() {
+    var name = document.getElementById('fullName').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var phone = document.getElementById('phone').value.trim();
+    var roomName = selectedRoom.dataset.name;
+    var ci = formatDate(checkin.value);
+    var co = formatDate(checkout.value);
+    var nights = getNights();
+    var guestsCount = guests.value;
+    var price = parseInt(selectedRoom.dataset.price);
+    var total = nights * price;
+    var special = document.getElementById('specialRequests').value.trim() || 'None';
+    var now = formatDateTime();
+
+    var msg = '\uD83C\uDFE8 *NEW BOOKING REQUEST - PEB Global Hotel*\n\n';
+    msg += '\uD83D\uDC64 *Guest Details*\n';
+    msg += 'Name: ' + name + '\n';
+    msg += 'Email: ' + email + '\n';
+    msg += 'Phone: ' + phone + '\n\n';
+    msg += '\uD83D\uDECF *Room Details*\n';
+    msg += 'Room: ' + roomName + '\n';
+    msg += 'Check-in: ' + ci + '\n';
+    msg += 'Check-out: ' + co + '\n';
+    msg += 'Nights: ' + nights + '\n';
+    msg += 'Guests: ' + guestsCount + '\n\n';
+    msg += '\uD83D\uDCB0 *Payment Details*\n';
+    msg += 'Rate per night: ' + formatCurrencyPlain(price) + '\n';
+    msg += 'Total Amount: ' + formatCurrencyPlain(total) + '\n\n';
+    msg += '\uD83D\uDCDD *Special Requests*\n';
+    msg += special + '\n\n';
+    msg += '\u23F0 Booking received: ' + now + '\n\n';
+    msg += 'Please confirm reservation and await payment receipt.';
+
+    return 'https://wa.me/2348157708389?text=' + encodeURIComponent(msg);
   }
 
   function getNights() {
@@ -626,15 +686,22 @@
     }
   }
 
+  function openWhatsApp() {
+    window.open(buildWhatsAppUrl(), '_blank');
+  }
+
   confirmBtn.addEventListener('click', function() {
     var name = document.getElementById('fullName').value.trim();
     var email = document.getElementById('email').value.trim();
-    var msg = 'Thank you ' + name + '! Your booking request has been received. Our reservations team will contact you at ' + email + ' within 24 hours to confirm your reservation and arrange payment.';
+    var msg = 'Thank you ' + name + '! Your booking request has been sent to our reservations team on WhatsApp. We will contact you at ' + email + ' within 24 hours to confirm your reservation. Please await our confirmation before making payment.';
     document.getElementById('successMessage').textContent = msg;
     document.getElementById('reviewCard').style.display = 'none';
     document.getElementById('successContent').classList.add('show');
     document.getElementById('step3').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    openWhatsApp();
   });
+
+  document.getElementById('resendWhatsApp').addEventListener('click', openWhatsApp);
 
   setMinDates();
 })();

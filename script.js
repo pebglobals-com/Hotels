@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   var slides = document.querySelectorAll('.hero-slide');
-  if (slides.length > 1) { var si = 0; setInterval(function () { slides[si].classList.remove('active'); si = (si + 1) % slides.length; slides[si].classList.remove('active'); void slides[si].offsetWidth; slides[si].classList.add('active'); }, 8000); }
+  if (slides.length > 1) { var si = 0; setInterval(function () { slides[si].classList.remove('active'); si = (si + 1) % slides.length; void slides[si].offsetWidth; slides[si].classList.add('active'); }, 8000); }
   var navToggler = document.getElementById('navToggler');
   var navbar = document.getElementById('navbar');
   if (navToggler && navbar) { navToggler.addEventListener('click', function () { navbar.classList.toggle('open'); navToggler.classList.toggle('active'); }); }
@@ -20,5 +20,5 @@ document.addEventListener('DOMContentLoaded', function () {
   if (newsletterForm) { newsletterForm.addEventListener('submit', function (e) { e.preventDefault(); var input = newsletterForm.querySelector('input[type="email"]'); var btn = newsletterForm.querySelector('button[type="submit"]'); if (input && input.value.trim() !== '') { btn.textContent = 'Subscribed!'; btn.style.background = '#934200'; btn.style.color = '#fff'; input.value = ''; setTimeout(function () { btn.textContent = 'Subscribe'; btn.style.background = ''; btn.style.color = ''; }, 3000); } }); }
   var navLinks = document.querySelectorAll('#navbar .nav-link');
   navLinks.forEach(function (link) { link.addEventListener('click', function () { if (window.innerWidth <= 991) { navbar.classList.remove('open'); navToggler.classList.remove('active'); } }); });
-  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) { anchor.addEventListener('click', function (e) { var target = document.querySelector(this.getAttribute('href')); if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }); });
+  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) { anchor.addEventListener('click', function (e) { var href = this.getAttribute('href'); if (href === '#' || href === '') return; var target = document.querySelector(href); if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }); });
 });

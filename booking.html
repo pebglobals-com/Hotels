@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Book Your Stay - Reserve your room at PEB Global Hotel Jeddo Delta State Nigeria">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="PEB Global Hotel">
+  <meta property="og:image" content="images/hero-exterior-night.jpg">
+  <meta property="og:title" content="Book a Room | PEB Global Hotel">
+  <meta property="og:description" content="Reserve your room at PEB Global Hotel. Easy 3-step booking with instant WhatsApp confirmation.">
   <title>Reserve Your Room - PEB Global Hotel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -334,17 +339,6 @@
           <input type="tel" id="phone" placeholder="e.g. +234 801 234 5678" required>
         </div>
         <div class="form-group">
-          <label for="guestsStep2">Number of Guests</label>
-          <select id="guestsStep2">
-            <option value="1">1 Guest</option>
-            <option value="2" selected>2 Guests</option>
-            <option value="3">3 Guests</option>
-            <option value="4">4 Guests</option>
-            <option value="5">5 Guests</option>
-            <option value="6">6 Guests</option>
-          </select>
-        </div>
-        <div class="form-group">
           <label for="specialRequests">Special Requests <span style="font-weight:400;color:#999;text-transform:none;">(optional)</span></label>
           <textarea id="specialRequests" rows="3" placeholder="Any special requests or preferences..."></textarea>
         </div>
@@ -440,7 +434,7 @@
   <div class="container bg">
     <div class="row footer-row">
       <div class="col-sm-2 footer-brand">
-        <a href="index.html" class="logo footer-logo" title="PEB Global Hotels logo"><img src="images/logo.png" alt="PEB Global Hotels"></a>
+        <a href="index.html" class="logo footer-logo" title="PEB Global Hotels logo"><img src="images/logo.png" alt="PEB Global Hotels" loading="lazy"></a>
         <p><a href="tel:+2348157708389">+234 815 770 8389</a><br><a href="mailto:reservations@pebglobalhotels.com">reservations@pebglobalhotels.com</a></p>
         <p>Plot 1, Old Okpe Link Road,<br>Jeddo,<br>Delta State,<br>Nigeria</p>
         <ul class="social-icons">
@@ -496,7 +490,6 @@
   var checkout = document.getElementById('checkout');
   var nightsCount = document.getElementById('nightsCount');
   var guests = document.getElementById('guests');
-  var guestsStep2 = document.getElementById('guestsStep2');
   var roomGrid = document.getElementById('roomGrid');
   var toStep2Btn = document.getElementById('toStep2');
   var backToStep1Btn = document.getElementById('backToStep1');
@@ -613,9 +606,16 @@
     var d = String(today.getDate()).padStart(2, '0');
     var min = y + '-' + m + '-' + d;
     checkin.setAttribute('min', min);
+    checkout.setAttribute('min', min);
+    checkout.disabled = true;
     checkin.addEventListener('change', function() {
       if (checkin.value) {
-        checkout.setAttribute('min', checkin.value);
+        var ci = new Date(checkin.value + 'T00:00:00');
+        ci.setDate(ci.getDate() + 1);
+        var ny = ci.getFullYear();
+        var nm = String(ci.getMonth() + 1).padStart(2, '0');
+        var nd = String(ci.getDate()).padStart(2, '0');
+        checkout.setAttribute('min', ny + '-' + nm + '-' + nd);
         checkout.removeAttribute('disabled');
       }
       if (checkout.value && checkout.value <= checkin.value) checkout.value = '';
@@ -635,10 +635,6 @@
     validateStep1();
   });
 
-  // Sync guests between steps
-  guests.addEventListener('change', function() { guestsStep2.value = guests.value; });
-  guestsStep2.addEventListener('change', function() { guests.value = guestsStep2.value; });
-
   // Progress bar
   function updateProgress(step) {
     document.querySelectorAll('.progress-step').forEach(function(el) {
@@ -652,7 +648,7 @@
       if (i + 1 < step) circles[i].innerHTML = '<i class="fas fa-check"></i>';
       else circles[i].textContent = i + 1;
     }
-    var pct = ((step - 1) / 2) * 100;
+    var pct = ((step - 1) / 2) * 80;
     document.getElementById('progressFill').style.width = pct + '%';
   }
 
@@ -661,6 +657,7 @@
     document.getElementById('step' + step).classList.add('active');
     currentStep = step;
     updateProgress(step);
+    if (step === 2) step2Error.classList.remove('show');
     document.getElementById('bookingApp').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 

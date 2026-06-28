@@ -11,7 +11,7 @@ Agents: orchestrator.md, rooms.md, booking.md, gallery.md, contact.md, reviewer.
 Hotel: PEB Global Hotel, Plot 1 Old Okpe Link Road, Jeddo, Delta State, Nigeria
 Phone: +234 815 770 8389 | Email: reservations@pebglobalhotels.com
 Rooms: Standard 45000/night, Deluxe 75000/night, Studio 60000/night, Suite 120000/night
-STATUS: IN PROGRESS - ROUND 1 AND 2 FIXES PARTIALLY DONE
+STATUS: IN PROGRESS - HERO OVERLAP FIXED
 LATEST FIX: Top contact banner hidden on mobile to fix navbar layout collision
 LATEST FIX: Navbar padding-top moved to .main wrapper in style.css - desktop 140px mobile 80px
 LATEST FIX: Hero height reduced to 30vh min-height 250px across all 16 pages

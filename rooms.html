@@ -12,23 +12,25 @@
   <title>Rooms - PEB Global Hotel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="logo.png">
   <style>
     .room-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-    .room-card { background: #f8f8f8; padding: 1.5rem; display: flex; flex-direction: column; }
-    .room-card img { margin-bottom: 1rem; width: 100%; height: 240px; object-fit: cover; }
-    .room-card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-    .room-price { font-size: 1.25rem; font-weight: 700; color: var(--brown); margin-bottom: 1rem; }
+    .room-card { background: #1A1A1D; border: 1px solid #2E2E33; border-radius: 8px; padding: 1.5rem; display: flex; flex-direction: column; transition: all 0.3s ease; }
+    .room-card:hover { border-color: #B3852A; box-shadow: 0 4px 20px rgba(179,133,42,0.15); transform: translateY(-4px); }
+    .room-card img { margin-bottom: 1rem; width: 100%; height: 240px; object-fit: cover; border-radius: 4px; }
+    .room-card h3 { font-size: 1.4rem; margin-bottom: 0.5rem; color: #FFFFFF; font-family: 'Playfair Display', serif; }
+    .room-price { font-size: 1.2rem; font-weight: 700; color: #D2A23E; margin-bottom: 1rem; }
     .room-amenities { list-style: none; padding: 0; margin: 0 0 1.5rem; flex-grow: 1; }
-    .room-amenities li { padding: 0.35rem 0; font-size: 0.9rem; color: #333; display: flex; align-items: center; gap: 0.5rem; }
-    .room-amenities li::before { content: '\2713'; color: var(--brown); font-weight: 700; }
+    .room-amenities li { padding: 0.35rem 0; font-size: 0.85rem; color: #A0A0A8; display: flex; align-items: center; gap: 0.5rem; }
+    .room-amenities li::before { content: '\2713'; color: #B3852A; font-weight: 700; }
     .room-card .btn { margin-top: auto; }
+    .component:first-of-type h2 { color: #FFFFFF; font-family: 'Playfair Display', serif; }
+    .component:first-of-type p { color: #A0A0A8; }
     @media (max-width: 768px) { .room-grid { grid-template-columns: 1fr; } }
   </style>
-  <style>body{font-family:'Nunito',sans-serif;}</style>
 </head>
 <body>
 <!-- skip-link --><a href="#primary" class="skip-link">Skip to content</a>
@@ -61,7 +63,7 @@
           </ul>
         </li>
         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-        <li class="nav-item"><a class="nav-link" href="booking.html">Booking</a></li>
+        <li class="nav-item booking-nav"><a class="nav-link" href="booking.html">Book Now</a></li>
       </ul>
     </div>
   </div>
@@ -71,7 +73,7 @@
     <div class="container">
       <div class="hero-content">
         <div class="hero-text">
-          <h1>Our Rooms</h1>
+          <span class="hero-eyebrow">PEB GLOBAL HOTEL</span><h1>Our Rooms</h1>
           <p class="hero-subtitle">Comfortable and elegant accommodation for every traveller</p>
         </div>
       </div>

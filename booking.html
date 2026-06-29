@@ -12,128 +12,122 @@
   <title>Reserve Your Room - PEB Global Hotel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="logo.png">
-  <style>
-    body { font-family: 'Nunito', sans-serif; }
+<style>
+    body{font-family:'Inter',sans-serif;}
     .booking-section { max-width: 860px; margin: 0 auto 3rem; padding: 0 20px; }
-    /* Progress Bar */
     .progress-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; padding: 1.5rem 0; position: relative; }
-    .progress-bar::before { content: ''; position: absolute; top: 50%; left: 10%; right: 10%; height: 3px; background: #e0e0e0; transform: translateY(-50%); z-index: 0; }
-    .progress-bar .progress-line-fill { position: absolute; top: 50%; left: 10%; height: 3px; background: #d4a853; transform: translateY(-50%); z-index: 1; transition: width 0.4s ease; }
+    .progress-bar::before { content: ''; position: absolute; top: 50%; left: 10%; right: 10%; height: 2px; background: #2E2E33; transform: translateY(-50%); z-index: 0; }
+    .progress-bar .progress-line-fill { position: absolute; top: 50%; left: 10%; height: 2px; background: #B3852A; transform: translateY(-50%); z-index: 1; transition: width 0.4s ease; }
     .progress-step { display: flex; flex-direction: column; align-items: center; position: relative; z-index: 2; }
-    .progress-step .step-circle { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; border: 3px solid #e0e0e0; background: #fff; color: #999; transition: all 0.3s ease; }
-    .progress-step.active .step-circle { border-color: #d4a853; background: #d4a853; color: #fff; }
-    .progress-step.completed .step-circle { border-color: #d4a853; background: #d4a853; color: #fff; }
-    .progress-step .step-label { margin-top: 0.5rem; font-size: 0.8rem; font-weight: 600; color: #999; white-space: nowrap; transition: color 0.3s ease; }
-    .progress-step.active .step-label { color: #1a1a2e; }
-    .progress-step.completed .step-label { color: #d4a853; }
-    /* Steps */
+    .progress-step .step-circle { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; border: 2px solid #2E2E33; background: #1A1A1D; color: #A0A0A8; font-family: 'Inter',sans-serif; transition: all 0.3s ease; }
+    .progress-step.active .step-circle { border-color: #B3852A; background: #B3852A; color: #1C1206; }
+    .progress-step.completed .step-circle { border-color: #B3852A; background: #B3852A; color: #1C1206; }
+    .progress-step .step-label { margin-top: 0.5rem; font-size: 0.75rem; font-weight: 600; color: #A0A0A8; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px; transition: color 0.3s ease; font-family: 'Inter',sans-serif; }
+    .progress-step.active .step-label { color: #D2A23E; }
+    .progress-step.completed .step-label { color: #B3852A; }
     .step-content { display: none; animation: fadeIn 0.35s ease; }
     .step-content.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-    .booking-card { background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); padding: 2rem; }
-    .booking-card h2 { font-size: 1.5rem; margin-bottom: 0.25rem; color: #1a1a2e; }
-    .booking-card .subtitle { font-size: 0.9rem; color: #666; margin-bottom: 1.5rem; }
+    .booking-card { background: #1A1A1D; border-radius: 10px; border: 1px solid #2E2E33; padding: 2rem; }
+    .booking-card h2 { font-size: 1.5rem; margin-bottom: 0.25rem; color: #FFFFFF; font-family: 'Playfair Display',serif; }
+    .booking-card .subtitle { font-size: 0.85rem; color: #A0A0A8; margin-bottom: 1.5rem; }
     .form-row-2 { display: flex; gap: 1rem; margin-bottom: 1rem; }
     .form-row-2 .form-group { flex: 1; }
     .form-group { margin-bottom: 1.25rem; }
-    .form-group label { display: block; font-weight: 600; font-size: 0.85rem; color: #444; margin-bottom: 0.35rem; text-transform: uppercase; letter-spacing: 0.5px; }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.75rem 0.9rem; border: 1px solid #ccc; border-radius: 6px; font-size: 0.95rem; font-family: 'Nunito', sans-serif; transition: border-color 0.2s; background: #fafafa; }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #d4a853; background: #fff; box-shadow: 0 0 0 3px rgba(212,168,83,0.15); }
-    .form-group input.error, .form-group select.error { border-color: #e74c3c; box-shadow: 0 0 0 3px rgba(231,76,60,0.15); }
-    .nights-display { background: #f8f4ed; padding: 0.6rem 1rem; border-radius: 6px; font-size: 0.95rem; color: #1a1a2e; font-weight: 600; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem; }
-    .nights-display span { color: #d4a853; font-size: 1.1rem; }
-    /* Room Cards */
+    .form-group label { display: block; font-weight: 600; font-size: 0.8rem; color: #D2A23E; margin-bottom: 0.35rem; text-transform: uppercase; letter-spacing: 0.8px; font-family: 'Inter',sans-serif; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.75rem 0.9rem; border: 1px solid #2E2E33; border-radius: 6px; font-size: 0.9rem; font-family: 'Inter',sans-serif; transition: border-color 0.2s; background: #232327; color: #EDEDEF; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #B3852A; background: #232327; box-shadow: 0 0 0 2px rgba(179,133,42,0.2); }
+    .form-group input.error, .form-group select.error { border-color: #C7453B; box-shadow: 0 0 0 2px rgba(199,69,59,0.2); }
+    .nights-display { background: #16264A; border: 1px solid #243A66; padding: 0.6rem 1rem; border-radius: 6px; font-size: 0.9rem; color: #FFFFFF; font-weight: 600; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem; }
+    .nights-display span { color: #D2A23E; font-size: 1.05rem; }
     .room-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
-    .room-card { border: 2px solid #eee; border-radius: 10px; overflow: hidden; cursor: pointer; transition: all 0.3s ease; background: #fff; position: relative; }
-    .room-card:hover { border-color: #d4a853; box-shadow: 0 4px 15px rgba(212,168,83,0.2); }
-    .room-card.selected { border-color: #d4a853; box-shadow: 0 4px 20px rgba(212,168,83,0.3); }
+    .room-card { border: 1px solid #2E2E33; border-radius: 8px; overflow: hidden; cursor: pointer; transition: all 0.3s ease; background: #1A1A1D; position: relative; }
+    .room-card:hover { border-color: #B3852A; box-shadow: 0 4px 20px rgba(179,133,42,0.15); transform: translateY(-4px); }
+    .room-card.selected { border-color: #B3852A; box-shadow: 0 4px 20px rgba(179,133,42,0.3); }
     .room-card .room-img { width: 100%; height: 160px; object-fit: cover; display: block; }
     .room-card .room-info { padding: 1rem; }
-    .room-card .room-name { font-size: 1.05rem; font-weight: 700; color: #1a1a2e; margin-bottom: 0.25rem; }
-    .room-card .room-price { font-size: 1.1rem; font-weight: 700; color: #d4a853; margin-bottom: 0.5rem; }
-    .room-card .room-meta { font-size: 0.8rem; color: #666; margin-bottom: 0.5rem; }
+    .room-card .room-name { font-size: 1.05rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.25rem; font-family: 'Playfair Display',serif; }
+    .room-card .room-price { font-size: 1.1rem; font-weight: 700; color: #D2A23E; margin-bottom: 0.5rem; }
+    .room-card .room-meta { font-size: 0.78rem; color: #A0A0A8; margin-bottom: 0.5rem; }
     .room-card .room-meta i { margin-right: 0.3rem; }
     .room-card .room-amenities { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.75rem; }
-    .room-card .room-amenities span { background: #f4f4f4; font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 4px; color: #555; }
+    .room-card .room-amenities span { background: #232327; font-size: 0.65rem; padding: 0.2rem 0.5rem; border-radius: 4px; color: #A0A0A8; }
     .room-card .room-actions { display: flex; justify-content: space-between; align-items: center; }
-    .room-card .select-btn { background: #1a1a2e; color: #fff; border: none; padding: 0.5rem 1.2rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: background 0.2s; font-family: 'Nunito', sans-serif; }
-    .room-card .select-btn:hover { background: #2d2d5e; }
-    .room-card.selected .select-btn { background: #d4a853; }
-    .room-card .available-badge { background: #27ae60; color: #fff; font-size: 0.65rem; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
-    .running-total { background: #1a1a2e; color: #fff; padding: 1rem 1.25rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; font-weight: 600; margin-top: 1rem; }
-    .running-total .total-amount { color: #d4a853; font-size: 1.3rem; }
-    /* Step Nav Buttons */
+    .room-card .select-btn { background: transparent; color: #D2A23E; border: 1.5px solid #D2A23E; padding: 0.5rem 1.2rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'Inter',sans-serif; text-transform: uppercase; letter-spacing: 0.5px; }
+    .room-card .select-btn:hover { background: #B3852A; border-color: #B3852A; color: #1C1206; }
+    .room-card.selected .select-btn { background: #B3852A; border-color: #B3852A; color: #1C1206; }
+    .room-card .available-badge { background: #2E8B57; color: #fff; font-size: 0.6rem; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
+    .running-total { background: #16264A; border: 1px solid #243A66; color: #FFFFFF; padding: 1rem 1.25rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 1rem; font-weight: 600; margin-top: 1rem; }
+    .running-total .total-amount { color: #D2A23E; font-size: 1.25rem; }
     .step-nav { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1.5rem; }
-    .step-nav .btn { padding: 0.8rem 2rem; border: none; border-radius: 6px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'Nunito', sans-serif; }
-    .step-nav .btn-primary { background: #d4a853; color: #fff; }
-    .step-nav .btn-primary:hover { background: #c49a48; }
-    .step-nav .btn-primary:disabled { background: #ccc; cursor: not-allowed; }
-    .step-nav .btn-secondary { background: #eee; color: #444; }
-    .step-nav .btn-secondary:hover { background: #ddd; }
-    .step-nav .btn-outline { background: transparent; color: #1a1a2e; border: 2px solid #1a1a2e; }
-    .step-nav .btn-outline:hover { background: #1a1a2e; color: #fff; }
-    .error-msg { background: #fdecea; color: #e74c3c; padding: 0.6rem 1rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; margin-top: 1rem; display: none; }
+    .step-nav .btn { padding: 0.8rem 2rem; border: none; border-radius: 6px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'Inter',sans-serif; }
+    .step-nav .btn-primary { background: #B3852A; color: #1C1206; }
+    .step-nav .btn-primary:hover { background: #8F6A1F; }
+    .step-nav .btn-primary:disabled { background: rgba(179,133,42,0.35); color: rgba(28,18,6,0.5); cursor: not-allowed; }
+    .step-nav .btn-secondary { background: #232327; color: #A0A0A8; }
+    .step-nav .btn-secondary:hover { background: #2E2E33; }
+    .step-nav .btn-outline { background: transparent; color: #D2A23E; border: 1.5px solid #D2A23E; }
+    .step-nav .btn-outline:hover { background: rgba(210,162,62,0.1); }
+    .error-msg { background: rgba(199,69,59,0.1); border: 1px solid #C7453B; color: #C7453B; padding: 0.6rem 1rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600; margin-top: 1rem; display: none; }
     .error-msg.show { display: block; }
-    /* Step 3 - Review */
     .review-section { display: flex; gap: 2rem; flex-wrap: wrap; }
     .review-section .review-main { flex: 1; min-width: 280px; }
     .review-section .review-sidebar { flex: 0 0 280px; }
-    .review-room-card { display: flex; gap: 1rem; background: #f9f9f9; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; }
-    .review-room-card img { width: 100px; height: 80px; object-fit: cover; border-radius: 6px; }
+    .review-room-card { display: flex; gap: 1rem; background: #232327; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; }
+    .review-room-card img { width: 100px; height: 80px; object-fit: cover; border-radius: 4px; }
     .review-room-card .review-room-info { flex: 1; }
-    .review-room-card .review-room-name { font-weight: 700; color: #1a1a2e; margin-bottom: 0.2rem; }
-    .review-room-card .review-room-price { color: #d4a853; font-weight: 600; }
-    .review-detail { display: flex; justify-content: space-between; padding: 0.6rem 0; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+    .review-room-card .review-room-name { font-weight: 700; color: #FFFFFF; margin-bottom: 0.2rem; font-family: 'Playfair Display',serif; }
+    .review-room-card .review-room-price { color: #D2A23E; font-weight: 600; }
+    .review-detail { display: flex; justify-content: space-between; padding: 0.6rem 0; border-bottom: 1px solid #2E2E33; font-size: 0.85rem; }
     .review-detail:last-child { border-bottom: none; }
-    .review-detail .label { color: #666; }
-    .review-detail .value { font-weight: 600; color: #1a1a2e; }
-    .review-total { display: flex; justify-content: space-between; padding: 1rem 0; font-size: 1.2rem; font-weight: 700; border-top: 2px solid #d4a853; margin-top: 0.5rem; }
-    .review-total .value { color: #d4a853; }
-    .review-special { background: #f9f9f9; padding: 1rem; border-radius: 8px; margin-top: 1rem; }
-    .review-special p { margin: 0; font-size: 0.9rem; color: #555; font-style: italic; }
-    /* Success */
+    .review-detail .label { color: #A0A0A8; }
+    .review-detail .value { font-weight: 600; color: #EDEDEF; }
+    .review-total { display: flex; justify-content: space-between; padding: 1rem 0; font-size: 1.15rem; font-weight: 700; border-top: 2px solid #B3852A; margin-top: 0.5rem; }
+    .review-total .value { color: #D2A23E; }
+    .review-special { background: #232327; padding: 1rem; border-radius: 8px; margin-top: 1rem; }
+    .review-special strong { color: #EDEDEF; font-size: 0.85rem; }
+    .review-special p { margin: 0; font-size: 0.85rem; color: #A0A0A8; font-style: italic; }
     .success-content { text-align: center; padding: 2rem 1rem; display: none; }
     .success-content.show { display: block; }
-    .success-content .success-icon { font-size: 3rem; color: #27ae60; margin-bottom: 1rem; }
-    .success-content h2 { color: #27ae60; }
-    .success-content p { font-size: 1rem; color: #555; max-width: 500px; margin: 0 auto 1.5rem; line-height: 1.7; }
-    .success-content .btn { display: inline-block; padding: 0.8rem 2.5rem; background: #1a1a2e; color: #fff; border: none; border-radius: 6px; font-size: 0.95rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: background 0.2s; font-family: 'Nunito', sans-serif; }
-    .success-content .btn:hover { background: #2d2d5e; }
-    .success-content .btn-gold { background: #d4a853; color: #fff; margin-left: 0.5rem; }
-    .success-content .btn-gold:hover { background: #c49a48; color: #fff; }
+    .success-content .success-icon { font-size: 3rem; color: #2E8B57; margin-bottom: 1rem; }
+    .success-content h2 { color: #2E8B57; font-family: 'Playfair Display',serif; }
+    .success-content p { font-size: 0.95rem; color: #A0A0A8; max-width: 500px; margin: 0 auto 1.5rem; line-height: 1.7; }
+    .success-content .btn { display: inline-block; padding: 0.8rem 2.5rem; background: transparent; color: #D2A23E; border: 1.5px solid #D2A23E; border-radius: 6px; font-size: 0.9rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.2s; font-family: 'Inter',sans-serif; }
+    .success-content .btn:hover { background: rgba(210,162,62,0.1); }
+    .success-content .btn-gold { background: #B3852A; color: #1C1206; border: none; margin-left: 0.5rem; }
+    .success-content .btn-gold:hover { background: #8F6A1F; }
     .success-content .btn-row { display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
-    .whatsapp-note { background: #f0f8f0; border: 1px solid #d4edda; border-radius: 6px; padding: 0.7rem 1rem; font-size: 0.8rem; color: #2d6a2d; margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem; }
-    .whatsapp-note i { color: #25D366; font-size: 1rem; }
-    /* Payment Card */
-    .payment-card { background: #fdfaf2; border: 2px solid #d4a853; border-radius: 12px; padding: 1.5rem; margin: 1.5rem auto; max-width: 480px; text-align: left; box-shadow: 0 4px 20px rgba(212,168,83,0.15); }
-    .payment-card h3 { font-size: 1.15rem; color: #1a1a2e; margin-bottom: 0.5rem; text-align: center; }
-    .payment-card .payment-note { color: #d4a853; font-size: 0.9rem; text-align: center; font-weight: 600; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid #f0e4cc; }
+    .whatsapp-note { background: rgba(46,139,87,0.1); border: 1px solid rgba(46,139,87,0.3); border-radius: 6px; padding: 0.7rem 1rem; font-size: 0.78rem; color: #2E8B57; margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    .whatsapp-note i { color: #2E8B57; font-size: 1rem; }
+    .payment-card { background: #16264A; border: 1px solid #243A66; border-radius: 10px; padding: 1.5rem; margin: 1.5rem auto; max-width: 480px; text-align: left; }
+    .payment-card h3 { font-size: 1.1rem; color: #FFFFFF; margin-bottom: 0.5rem; text-align: center; font-family: 'Playfair Display',serif; }
+    .payment-card .payment-note { color: #D2A23E; font-size: 0.85rem; text-align: center; font-weight: 600; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid #243A66; }
     .payment-table { width: 100%; border-collapse: collapse; }
-    .payment-table td { padding: 0.45rem 0; font-size: 0.9rem; vertical-align: top; }
-    .payment-table td:first-child { color: #666; padding-right: 1rem; white-space: nowrap; }
-    .payment-table td:last-child { font-weight: 600; color: #1a1a2e; }
-    .payment-table .amount-row td { padding-top: 0.75rem; border-top: 1px solid #f0e4cc; }
-    .payment-table .amount-row td:first-child { font-size: 0.9rem; color: #666; font-weight: 400; }
-    .payment-table .amount-row td:last-child { font-size: 1.4rem; color: #d4a853; font-weight: 700; }
-    .payment-divider { height: 1px; background: #f0e4cc; margin: 1rem 0; }
-    .payment-transfer-note { font-size: 0.8rem; color: #888; text-align: center; font-style: italic; }
-    .payment-receipt-btn { display: block; width: 100%; padding: 0.85rem; background: #d4a853; color: #fff; border: none; border-radius: 6px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background 0.2s; font-family: 'Nunito', sans-serif; margin-top: 1rem; text-align: center; text-decoration: none; }
-    .payment-receipt-btn:hover { background: #c49a48; color: #fff; }
-    .payment-receipt-note { font-size: 0.78rem; color: #999; text-align: center; font-style: italic; margin-top: 0.5rem; }
-    .payment-disclaimer { font-size: 0.72rem; color: #e74c3c; text-align: center; margin-top: 1rem; }
+    .payment-table td { padding: 0.45rem 0; font-size: 0.85rem; vertical-align: top; color: #A0A0A8; }
+    .payment-table td:first-child { color: #A0A0A8; padding-right: 1rem; white-space: nowrap; }
+    .payment-table td:last-child { font-weight: 600; color: #EDEDEF; }
+    .payment-table .amount-row td { padding-top: 0.75rem; border-top: 1px solid #243A66; }
+    .payment-table .amount-row td:first-child { font-size: 0.85rem; color: #A0A0A8; font-weight: 400; }
+    .payment-table .amount-row td:last-child { font-size: 1.3rem; color: #D2A23E; font-weight: 700; }
+    .payment-divider { height: 1px; background: #243A66; margin: 1rem 0; }
+    .payment-transfer-note { font-size: 0.75rem; color: rgba(255,255,255,0.5); text-align: center; font-style: italic; }
+    .payment-receipt-btn { display: block; width: 100%; padding: 0.85rem; background: #B3852A; color: #1C1206; border: none; border-radius: 6px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: background 0.2s; font-family: 'Inter',sans-serif; margin-top: 1rem; text-align: center; text-decoration: none; }
+    .payment-receipt-btn:hover { background: #8F6A1F; color: #1C1206; }
+    .payment-receipt-note { font-size: 0.72rem; color: rgba(255,255,255,0.4); text-align: center; font-style: italic; margin-top: 0.5rem; }
+    .payment-disclaimer { font-size: 0.7rem; color: #C7453B; text-align: center; margin-top: 1rem; }
     @media (max-width: 768px) {
       .room-grid { grid-template-columns: 1fr; }
       .form-row-2 { flex-direction: column; gap: 0; }
-      .progress-bar .step-label { font-size: 0.65rem; }
+      .progress-bar .step-label { font-size: 0.6rem; }
       .progress-bar::before, .progress-bar .progress-line-fill { left: 5%; right: 5%; }
       .review-section { flex-direction: column; }
       .review-section .review-sidebar { flex: 1; }
       .booking-card { padding: 1.25rem; }
-      .step-nav .btn { padding: 0.7rem 1.2rem; font-size: 0.85rem; }
+      .step-nav .btn { padding: 0.7rem 1.2rem; font-size: 0.8rem; }
     }
   </style>
 </head>
@@ -168,7 +162,7 @@
           </ul>
         </li>
         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-        <li class="nav-item"><a class="nav-link" href="booking.html">Booking</a></li>
+        <li class="nav-item booking-nav"><a class="nav-link" href="booking.html">Book Now</a></li>
       </ul>
     </div>
   </div>
@@ -178,7 +172,7 @@
     <div class="container">
       <div class="hero-content">
         <div class="hero-text">
-          <h1>Reserve Your Room</h1>
+          <span class="hero-eyebrow">PEB GLOBAL HOTEL</span><h1>Reserve Your Room</h1>
           <p class="hero-subtitle">Book your perfect stay at PEB Global Hotel</p>
         </div>
       </div>
@@ -231,13 +225,13 @@
             <option value="6">6 Guests</option>
           </select>
         </div>
-        <h3 style="font-size:1.1rem;margin-bottom:0.75rem;color:#1a1a2e;">Select a Room</h3>
+        <h3 style="font-size:1.1rem;margin-bottom:0.75rem;color:#FFFFFF;font-family:'Playfair Display',serif;">Select a Room</h3>
         <div class="room-grid" id="roomGrid">
           <div class="room-card" data-room="standard" data-price="45000" data-image="images/standard-room-1.jpg" data-name="Standard Room" data-bed="Queen bed" data-guests="2" data-amenities="Free WiFi, Air Conditioning, Flat-screen TV, En-suite Bathroom">
             <img src="images/standard-room-1.jpg" alt="Standard Room" class="room-img" loading="lazy">
             <div class="room-info">
               <div class="room-name">Standard Room</div>
-              <div class="room-price">&#8358;45,000 <span style="font-size:0.75rem;font-weight:400;color:#999;">per night</span></div>
+              <div class="room-price">&#8358;45,000 <span style="font-size:0.75rem;font-weight:400;color:#A0A0A8;">per night</span></div>
               <div class="room-meta"><i class="fas fa-bed"></i> Queen bed &middot; <i class="fas fa-users"></i> Up to 2 guests</div>
               <div class="room-amenities">
                 <span>Free WiFi</span><span>Air Conditioning</span><span>Flat-screen TV</span><span>En-suite Bathroom</span>
@@ -252,7 +246,7 @@
             <img src="images/deluxe-room-1.jpg" alt="Deluxe Room" class="room-img" loading="lazy">
             <div class="room-info">
               <div class="room-name">Deluxe Room</div>
-              <div class="room-price">&#8358;75,000 <span style="font-size:0.75rem;font-weight:400;color:#999;">per night</span></div>
+              <div class="room-price">&#8358;75,000 <span style="font-size:0.75rem;font-weight:400;color:#A0A0A8;">per night</span></div>
               <div class="room-meta"><i class="fas fa-bed"></i> King bed &middot; <i class="fas fa-users"></i> Up to 2 guests</div>
               <div class="room-amenities">
                 <span>Free WiFi</span><span>Air Conditioning</span><span>50 inch TV</span><span>Rain Shower</span><span>Work Desk</span>
@@ -267,7 +261,7 @@
             <img src="images/studio-room-1.jpg" alt="Studio Room" class="room-img" loading="lazy">
             <div class="room-info">
               <div class="room-name">Studio Room</div>
-              <div class="room-price">&#8358;60,000 <span style="font-size:0.75rem;font-weight:400;color:#999;">per night</span></div>
+              <div class="room-price">&#8358;60,000 <span style="font-size:0.75rem;font-weight:400;color:#A0A0A8;">per night</span></div>
               <div class="room-meta"><i class="fas fa-bed"></i> Queen bed + kitchenette &middot; <i class="fas fa-users"></i> Up to 2 guests</div>
               <div class="room-amenities">
                 <span>Free WiFi</span><span>Air Conditioning</span><span>Kitchenette</span><span>Work Desk</span>
@@ -282,7 +276,7 @@
             <img src="images/suite-room-1.jpg" alt="Self-Catering Suite" class="room-img" loading="lazy">
             <div class="room-info">
               <div class="room-name">Self-Catering Suite</div>
-              <div class="room-price">&#8358;120,000 <span style="font-size:0.75rem;font-weight:400;color:#999;">per night</span></div>
+              <div class="room-price">&#8358;120,000 <span style="font-size:0.75rem;font-weight:400;color:#A0A0A8;">per night</span></div>
               <div class="room-meta"><i class="fas fa-bed"></i> King bed &middot; <i class="fas fa-users"></i> Up to 4 guests</div>
               <div class="room-amenities">
                 <span>Free WiFi</span><span>Air Conditioning</span><span>Full Kitchen</span><span>Living Area</span><span>2 Bedrooms</span>
@@ -297,7 +291,7 @@
             <img src="images/suite-room-1.jpg" alt="Presidential Suite" class="room-img" loading="lazy">
             <div class="room-info">
               <div class="room-name">Presidential Suite</div>
-              <div class="room-price">&#8358;200,000 <span style="font-size:0.75rem;font-weight:400;color:#999;">per night</span></div>
+              <div class="room-price">&#8358;200,000 <span style="font-size:0.75rem;font-weight:400;color:#A0A0A8;">per night</span></div>
               <div class="room-meta"><i class="fas fa-bed"></i> King bed + living room &middot; <i class="fas fa-users"></i> Up to 6 guests</div>
               <div class="room-amenities">
                 <span>Free WiFi</span><span>Air Conditioning</span><span>Jacuzzi</span><span>Private Terrace</span><span>Butler Service</span><span>Full Kitchen</span><span>3 Bedrooms</span>
@@ -339,7 +333,7 @@
           <input type="tel" id="phone" placeholder="e.g. +234 801 234 5678" required>
         </div>
         <div class="form-group">
-          <label for="specialRequests">Special Requests <span style="font-weight:400;color:#999;text-transform:none;">(optional)</span></label>
+          <label for="specialRequests">Special Requests <span style="font-weight:400;color:#A0A0A8;text-transform:none;">(optional)</span></label>
           <textarea id="specialRequests" rows="3" placeholder="Any special requests or preferences..."></textarea>
         </div>
         <div class="error-msg" id="step2Error">Please fill in all required fields.</div>
@@ -377,7 +371,7 @@
             <div class="review-detail"><span class="label">Email</span><span class="value" id="reviewEmail"></span></div>
             <div class="review-detail"><span class="label">Phone</span><span class="value" id="reviewPhone"></span></div>
             <div class="review-special" id="reviewSpecialContainer" style="display:none;">
-              <strong style="font-size:0.85rem;color:#1a1a2e;">Special Requests:</strong>
+              <strong style="font-size:0.85rem;color:#EDEDEF;">Special Requests:</strong>
               <p id="reviewSpecial"></p>
             </div>
           </div>
